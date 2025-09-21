@@ -1,0 +1,33 @@
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+[[redirects]]
+  from = "/account"
+  to = "/account.html"
+  status = 301
+
+[[redirects]]
+  from = "/pricing"
+  to = "/pricing.html"
+  status = 301
+
+[[redirects]]
+  from = "/remove-watermark.html"
+  to = "/magic-paint.html"
+  status = 301
+
+[[redirects]]
+  from = "/pincel-magico.html"
+  to = "/magic-paint.html"
+  status = 301
+
+[dev]
+  command = ""
+  targetPort = 8888
+  port = 8889
+
+[headers]
+  for = "/sw.js"
+  [headers.values]
+    cache-control = "no-cache"

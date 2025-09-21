@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Convert Images — ImageMagic</title>
+  <meta name="description" content="Convert images between PNG, JPEG, WEBP, AVIF, GIF, TIFF, BMP and more. In-browser, fast." />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="icon" href="/assets/icons/favicon.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+  <script defer src="/assets/js/init-page.js"></script>
+  <script defer src="/assets/js/i18n.js"></script>
+  <script defer src="/assets/js/theme.js"></script>
+  <script defer src="/assets/js/ads.js"></script>
+  <script defer src="/assets/js/utils.js"></script>
+  <script defer src="/assets/js/tools/convert.js"></script>
+  <!-- Optional codecs via Squoosh (loaded on demand) -->
+  <script>window.__SQUOOSH_BASE__ = 'https://unpkg.com/@squoosh/lib@0.4.0';</script>
+</head>
+<body class="bg-slate-950 text-slate-100">
+  <div data-include="/partials/header.html"></div>
+  <main class="max-w-6xl mx-auto px-4 py-10">
+    <h1 class="text-2xl font-bold mb-4" data-i18n="convert.title">Convert Images</h1>
+    <p class="text-slate-300 mb-6" data-i18n="convert.subtitle">Convert between popular formats. Quality and alpha preserved when supported.</p>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <section class="md:col-span-2 space-y-4">
+        <div class="bg-slate-900/60 p-4 rounded border border-slate-800">
+          <div id="dropzone" class="dropzone" data-dropzone>
+            <p class="hint">Arraste e solte uma imagem aqui</p>
+            <p class="hint">ou <button type="button" class="link" data-select-file>escolher um arquivo</button></p>
+            <input id="file-input" type="file" accept="image/*" hidden />
+          </div>
+          <div class="mt-4 grid grid-cols-2 gap-4">
+            <label class="text-sm">Format
+              <select id="format" class="input">
+                <option value="png">PNG</option>
+                <option value="jpeg">JPEG</option>
+                <option value="webp" selected>WEBP</option>
+                <option value="avif">AVIF</option>
+                <option value="gif">GIF</option>
+                <option value="bmp">BMP</option>
+                <option value="tiff">TIFF</option>
+              </select>
+            </label>
+            <label class="text-sm">Quality (if applicable)
+              <input id="quality" type="range" min="50" max="100" step="1" value="90" class="w-full" />
+            </label>
+          </div>
+          <div class="mt-4 flex gap-3">
+            <button id="process" class="btn-primary">Convert</button>
+            <a id="download" class="btn" download="converted.webp">Download</a>
+          </div>
+          <div id="progress" class="progress mt-2" hidden><div class="bar"></div></div>
+          <p id="status" class="text-xs text-slate-400 mt-2"></p>
+        </div>
+        <img id="preview" class="w-full bg-slate-900 rounded min-h-[200px] border border-slate-800 object-contain" alt="preview" />
+      </section>
+      <aside>
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXX" data-ad-slot="100000002" data-ad-format="rectangle"></ins>
+      </aside>
+    </div>
+  </main>
+  <div data-include="/partials/footer.html"></div>
+</body>
+</html>

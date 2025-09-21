@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pricing — ImageMagic</title>
+  <meta name="description" content="Premium ad-free plan. Support ImageMagic and enjoy a distraction-free experience." />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="icon" href="/assets/icons/favicon.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+  <script defer src="/assets/js/init-page.js"></script>
+  <script defer src="/assets/js/i18n.js"></script>
+  <script defer src="/assets/js/theme.js"></script>
+  <script defer src="/assets/js/ads.js"></script>
+  <script defer src="/assets/js/payments.js"></script>
+</head>
+<body class="bg-slate-950 text-slate-100">
+  <div data-include="/partials/header.html"></div>
+  <main class="max-w-4xl mx-auto px-4 py-10">
+    <h1 class="text-3xl font-bold mb-6" data-i18n="pricing.title">Go Premium — No Ads</h1>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="bg-slate-900/60 rounded border border-slate-800 p-6">
+        <h2 class="font-semibold mb-2" data-i18n="pricing.free_title">Free</h2>
+        <ul class="text-sm text-slate-300 list-disc ml-5 space-y-1">
+          <li data-i18n="pricing.free_1">All tools</li>
+          <li data-i18n="pricing.free_2">Ads supported (medium density)</li>
+          <li data-i18n="pricing.free_3">Local processing</li>
+        </ul>
+      </div>
+      <div class="bg-slate-900/60 rounded border border-slate-800 p-6">
+        <h2 class="font-semibold mb-2" data-i18n="pricing.premium_title">Premium</h2>
+        <div class="text-3xl font-bold mb-2" id="price-display">$1.99</div>
+        <p class="text-xs text-slate-400 mb-4" data-i18n="pricing.price_note">Approx. USD value of R$ 9,99. Final price depends on Stripe product currency.</p>
+        <ul class="text-sm text-slate-300 list-disc ml-5 space-y-1 mb-4">
+          <li data-i18n="pricing.premium_1">Ad-free experience</li>
+          <li data-i18n="pricing.premium_2">Priority features</li>
+          <li data-i18n="pricing.premium_3">Support the project</li>
+        </ul>
+        <button id="subscribe" class="btn-primary" data-i18n="pricing.subscribe_btn">Subscribe</button>
+      </div>
+    </div>
+  </main>
+  <div data-include="/partials/footer.html"></div>
+</body>
+</html>
+
