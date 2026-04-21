@@ -1,139 +1,31 @@
-﻿<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ImageMagic â€” Fast Online Image Tools</title>
-  <meta name="description" content="ImageMagic: resize, convert, remove background, remove watermark, and upscale images in your browser. Free with ads or premium ad-free." />
-  <meta name="theme-color" content="#0f172a" />
-  <link rel="manifest" href="/manifest.webmanifest" />
-  <link rel="icon" href="/assets/icons/favicon.png" />
-  <meta property="og:title" content="ImageMagic â€” Fast Online Image Tools" />
-  <meta property="og:description" content="Resize, convert, background/watermark removal and AI upscaling." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="/" />
-  <meta property="og:image" content="/assets/og/cover.png" />
-  <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <script>
-    window.__AD_CLIENT__ = 'ca-pub-XXXXXXX'; // placeholder
-    window.__ADS_DENSITY__ = 'medium';
-    window.__GA_ID__ = 'G-XXXXXXXXXX';
-  </script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" crossorigin="anonymous"></script>
-  <script>
-    // Consent: GA/Ads loaded in main.js after consent; script preloaded for availability
-  </script>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="/assets/css/styles.css" />
-  <script defer src="/assets/js/main.js"></script>
-  <script defer src="/assets/js/i18n.js"></script>
-  <script defer src="/assets/js/ads.js"></script>
-  <script defer src="/assets/js/auth.js"></script>
-  <script defer src="/assets/js/theme.js"></script>
-  <script defer src="/assets/js/ga.js"></script>
-  <script defer src="/assets/js/nav.js"></script>
-  <script defer src="/assets/js/pwa.js"></script>
-  <script defer src="/assets/js/pricing.js"></script>
-  <script defer src="/assets/js/utils.js"></script>
-  <script defer src="/assets/js/init.js"></script>
-  <style>/* above-the-fold minimal */ html{scroll-behavior:smooth}</style>
-  <noscript>Enable JavaScript to use ImageMagic tools.</noscript>
-  <!-- Consent Banner -->
-  <script defer src="/assets/js/consent.js"></script>
-  <!-- AdSense auto ads can be enabled later if desired -->
-  <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ImageMagic</title>
+    <link rel="shortcut icon" href="/icons/icon-192x192.png" />
+    <link rel="manifest" href="/manifest.json" />
   </head>
-<body class="min-h-screen bg-slate-950 text-slate-100 dark:bg-slate-950 dark:text-slate-100">
-  <header class="border-b border-slate-800 bg-slate-900/60 backdrop-blur supports-[backdrop-filter]:bg-slate-900/40 sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-      <a href="/" class="flex items-center gap-2">
-        <img src="/assets/icons/logo.svg" alt="ImageMagic" class="w-7 h-7" />
-        <span class="font-semibold">ImageMagic</span>
-      </a>
-      <nav class="hidden md:flex items-center gap-6 text-sm" id="main-nav">
-        <a href="/resize.html" data-i18n="nav.resize">Resize</a>
-        <a href="/convert.html" data-i18n="nav.convert">Convert</a>
-        <a href="/remove-bg.html" data-i18n="nav.remove_bg">Remove BG</a>
-        <a href="/magic-paint.html" data-i18n="nav.remove_watermark">Magic Brush</a>
-        <a href="/upscale.html" data-i18n="nav.upscale">Upscale</a>
-        <a href="/pricing.html" class="text-emerald-400 font-medium" data-i18n="nav.pricing">Pricing</a>
-        <a href="/about.html" data-i18n="nav.about">About</a>
-      </nav>
-      <div class="flex items-center gap-3">
-        <button id="theme-toggle" class="px-2 py-1 rounded bg-slate-800 text-slate-200 text-xs">Theme</button>
-        <select id="lang-select" class="bg-slate-800 text-slate-200 text-xs rounded px-2 py-1">
-          <option value="en" selected>EN</option>
-          <option value="pt">PT</option>
-          <option value="es">ES</option>
-        </select>
-        <button id="login-btn" class="px-3 py-1 rounded bg-emerald-600 text-white text-xs" data-i18n="auth.sign_in">Sign In</button>
+  <body>
+    <noscript>
+      <div style="text-align: center; padding: 2rem; background: #f3f4f6">
+        <h1>ImageMagic requires JavaScript</h1>
+        <p>Please enable JavaScript in your browser to use ImageMagic.</p>
       </div>
-    </div>
-    <div class="max-w-6xl mx-auto px-4 py-2">
-      <!-- Header Ad Slot -->
-      <ins class="adsbygoogle block" style="display:block" data-ad-client="ca-pub-XXXXXXX" data-ad-slot="000000001" data-ad-format="auto" data-full-width-responsive="true"></ins>
-    </div>
-  </header>
+    </noscript>
 
-  <main class="max-w-6xl mx-auto px-4 py-12 grid md:grid-cols-3 gap-8">
-    <section class="md:col-span-2">
-      <h1 class="text-3xl font-bold mb-3" data-i18n="home.title">AI Image Tools, In-Browser</h1>
-      <p class="text-slate-300 mb-6" data-i18n="home.subtitle">Resize, convert, remove background/watermark and upscale up to 8x, fast and private.</p>
-      <div class="grid sm:grid-cols-2 gap-4">
-        <a href="/resize.html" class="tool-card">Resize</a>
-        <a href="/convert.html" class="tool-card">Convert</a>
-        <a href="/remove-bg.html" class="tool-card">Remove Background</a>
-        <a href="/magic-paint.html" class="tool-card" data-i18n="nav.remove_watermark">Magic Brush</a>
-        <a href="/upscale.html" class="tool-card">Upscale 8x</a>
-        <a href="/pricing.html" class="tool-card border-emerald-500/40">Go Premium (Ad-Free)</a>
-      </div>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
 
-      <div class="my-8">
-        <!-- In-content Ad -->
-        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXX" data-ad-slot="000000002" data-ad-format="auto" data-full-width-responsive="true"></ins>
-      </div>
-
-      <section class="prose prose-invert max-w-none">
-        <h2 data-i18n="home.how_title">How it works</h2>
-        <p data-i18n="home.how_text">All processing runs in your browser. Images are never uploaded to our servers. It's private, fast, and secure.</p>
-      </section>
-    </section>
-    <aside class="space-y-4">
-      <!-- Sidebar Ad -->
-      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXX" data-ad-slot="000000003" data-ad-format="rectangle"></ins>
-      <div class="bg-slate-900/60 rounded p-4 border border-slate-800">
-        <h3 class="font-semibold mb-2" data-i18n="home.premium_title">Premium - No Ads</h3>
-        <p class="text-slate-300 text-sm mb-3" data-i18n="home.premium_text">Support the project and enjoy an ad-free experience with priority features.</p>
-        <a class="inline-block px-3 py-2 rounded bg-emerald-600 text-white text-sm" href="/pricing.html" data-i18n="home.premium_cta">See Pricing</a>
-      </div>
-    </aside>
-  </main>
-
-  <footer class="border-t border-slate-800 py-6">
-    <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
-      <nav class="flex items-center gap-4 text-sm">
-        <a href="/about.html" data-i18n="nav.about">About</a>
-        <a href="/contact.html" data-i18n="nav.contact">Contact</a>
-        <a href="/privacy.html" data-i18n="nav.privacy">Privacy</a>
-      </nav>
-      <!-- Sticky Footer Ad (shown on mobile if necessary) -->
-      <div class="w-full md:w-auto">
-        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXX" data-ad-slot="000000004" data-ad-format="auto"></ins>
-      </div>
-      <p class="text-xs text-slate-500">Â© <span id="year"></span> ImageMagic</p>
-    </div>
-  </footer>
-
-  <div id="consent-banner" class="fixed bottom-4 inset-x-4 bg-slate-900 border border-slate-800 rounded p-4 shadow hidden">
-    <p class="text-sm mb-3" data-i18n="consent.message">We use cookies for analytics and to display ads. Accept?</p>
-    <div class="flex gap-2">
-      <button id="consent-accept" class="px-3 py-1 bg-emerald-600 rounded text-white text-sm" data-i18n="consent.accept">Accept</button>
-      <button id="consent-decline" class="px-3 py-1 bg-slate-700 rounded text-white text-sm" data-i18n="consent.decline">Decline</button>
-    </div>
-  </div>
-
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
-</body>
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("/sw.js").catch((registrationError) => {
+            console.log("SW registration failed:", registrationError);
+          });
+        });
+      }
+    </script>
+  </body>
 </html>
-
-

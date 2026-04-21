@@ -1,52 +1,73 @@
-﻿# ImageMagic â€” Static, Netlify-ready
+# Welcome to your Lovable project
 
-ImageMagic is a static, privacy-first, multi-language site for image processing in the browser: resize, convert, remove background, remove watermark, and AI upscale. Monetized with Google AdSense (medium density), with an optional premium ad-free plan via Netlify Identity + Stripe Checkout.
+## Project info
 
-## Quick Start
-- Deploy to Netlify (drag & drop or connect repo)
-- Set environment variables in Netlify:
-  - `STRIPE_SECRET_KEY`
-  - `PRICE_ID_USD` (Stripe Price ID in USD for Premium)
-  - `PRICE_ID_BRL` (Stripe Price ID in BRL â‰ˆ R$ 9,99)
-  - Optional: `SUCCESS_URL`, `CANCEL_URL`
-- Update AdSense and GA IDs:
-  - In `index.html`: set `window.__AD_CLIENT__` and `window.__GA_ID__`
-  - Ad slots use `data-ad-client="ca-pub-XXXXXXX"` placeholders across pages (search & replace)
-- Enable Netlify Identity in site settings
+**URL**: https://lovable.dev/projects/27093b26-9ec9-4bfd-9a75-047f3be49b40
 
-## Pages
-- `/` Home
-- `/resize.html` Resize (presets + custom)
-- `/convert.html` Convert (PNG/JPEG/WEBP/AVIF + GIF/BMP/TIFF via Squoosh)
-- `/remove-bg.html` Remove Background (AI, ONNX Runtime + UÂ²-Net/BRIA RMBG)
-- `/magic-paint.html` Inpainting (OpenCV.js Telea/NS)
-- `/upscale.html` Upscale (AI up to 8Ã—, UpscalerJS + TensorFlow.js)
-- `/pricing.html` Pricing (Premium ~$1.99, ~R$9,99)
-- `/account.html` Account (Netlify Identity)
-- `/about.html`, `/contact.html`, `/privacy.html`
+## How can I edit this code?
 
-## PWA
-- `manifest.webmanifest`, `sw.js`, `offline.html`
+There are several ways of editing your application.
 
-## i18n
-- English (default), Portuguese, Spanish â€” see `assets/js/i18n.js`
+**Use Lovable**
 
-## Theme
-- Dark/Light with toggle. Palette options in `assets/css/styles.css` (`.light-1/.dark-1`, `.light-2/.dark-2`, `.light-3/.dark-3`).
+Simply visit the [Lovable Project](https://lovable.dev/projects/27093b26-9ec9-4bfd-9a75-047f3be49b40) and start prompting.
 
-## Notes
-- All processing is client-side. Heavy AI libraries/models load on demand from public CDNs or local copies (preferred for low traffic).
-- To run with minimal network traffic, place local assets at:
-  - ONNX Runtime WASM: `assets/vendors/onnxruntime-web/` (copy `.wasm` files from onnxruntime-web 1.19.x dist)
-  - OpenCV.js: `assets/vendors/opencv/opencv.js`
-  - RMBG model: `assets/models/rmbg/model.onnx`
-  - Optional Upscaler model: `assets/models/upscaler/esrgan-thick/1x/model.json` (+ shard files)
-  - Optional Squoosh lib: set `window.__SQUOOSH_BASE__ = '/assets/vendors/squoosh'`
-- The app will try local paths first and fall back to CDN. You can also override via globals:
-  - `window.__RMBG_MODEL__`, `window.__UPSCALER_LIB__`, `window.__TFJS_URL__`, `window.__UPSCALE_MODEL__`, `window.__SQUOOSH_BASE__`.
-- AdSense loads only after consent; ads are hidden for logged-in premium users (placeholder logic, wire to real premium flag if needed).
-- Stripe checkout session is created by `netlify/functions/create-checkout-session.js`.
+Changes made via Lovable will be committed automatically to this repo.
 
+**Use your preferred IDE**
 
+If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
 
+The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
+Follow these steps:
+
+```sh
+# Step 1: Clone the repository using the project's Git URL.
+git clone <YOUR_GIT_URL>
+
+# Step 2: Navigate to the project directory.
+cd <YOUR_PROJECT_NAME>
+
+# Step 3: Install the necessary dependencies.
+npm i
+
+# Step 4: Start the development server with auto-reloading and an instant preview.
+npm run dev
+```
+
+**Edit a file directly in GitHub**
+
+- Navigate to the desired file(s).
+- Click the "Edit" button (pencil icon) at the top right of the file view.
+- Make your changes and commit the changes.
+
+**Use GitHub Codespaces**
+
+- Navigate to the main page of your repository.
+- Click on the "Code" button (green button) near the top right.
+- Select the "Codespaces" tab.
+- Click on "New codespace" to launch a new Codespace environment.
+- Edit files directly within the Codespace and commit and push your changes once you're done.
+
+## What technologies are used for this project?
+
+This project is built with:
+
+- Vite
+- TypeScript
+- React
+- shadcn-ui
+- Tailwind CSS
+
+## How can I deploy this project?
+
+Simply open [Lovable](https://lovable.dev/projects/27093b26-9ec9-4bfd-9a75-047f3be49b40) and click on Share -> Publish.
+
+## Can I connect a custom domain to my Lovable project?
+
+Yes, you can!
+
+To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+
+Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
