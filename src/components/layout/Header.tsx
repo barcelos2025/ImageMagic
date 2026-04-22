@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Globe, Menu, Moon, Sparkles, Sun } from "@/components/icons";
+import { Globe, Leaf, Menu, Moon, Sun } from "@/components/icons";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -19,6 +19,7 @@ const HEADER_COPY = {
     languageSelector: "Language selector",
     toggleTheme: "Toggle theme",
     openMenu: "Open menu",
+    getStarted: "Get started",
     languages: {
       en: "English",
       pt: "Português",
@@ -31,6 +32,7 @@ const HEADER_COPY = {
     languageSelector: "Seletor de idioma",
     toggleTheme: "Alternar tema",
     openMenu: "Abrir menu",
+    getStarted: "Começar",
     languages: {
       en: "English",
       pt: "Português",
@@ -43,6 +45,7 @@ const HEADER_COPY = {
     languageSelector: "Selector de idioma",
     toggleTheme: "Cambiar tema",
     openMenu: "Abrir menú",
+    getStarted: "Empezar",
     languages: {
       en: "English",
       pt: "Português",
@@ -76,36 +79,33 @@ export const Header: React.FC = () => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/88 backdrop-blur-xl">
-      <div className="container flex h-20 items-center justify-between gap-4">
+    <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/95 backdrop-blur-xl">
+      <div className="container flex h-16 items-center justify-between gap-4">
         <Link to="/" className="group flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-primary shadow-sm">
-            <Sparkles className="h-5 w-5 text-primary-foreground" />
-          </div>
-          <div className="space-y-0.5">
-            <span className="block text-lg font-semibold tracking-tight text-foreground">{t("home.title")}</span>
-            <span className="block text-[11px] uppercase tracking-[0.2em] text-muted-foreground">{copy.tagline}</span>
-          </div>
+          <span className="block text-xl font-semibold tracking-tight text-primary">{t("home.title")}</span>
         </Link>
 
-        <nav className="hidden items-center gap-1 rounded-full border border-border/70 bg-card/88 p-1 shadow-sm lg:flex" aria-label={copy.primaryNav}>
+        <nav className="hidden items-center gap-6 lg:flex" aria-label={copy.primaryNav}>
           {navItems.map((item) => (
-            <Link key={item.path} to={item.path}>
-              <Button
-                variant={isActive(item.path) ? "default" : "ghost"}
-                size="sm"
-                className={isActive(item.path) ? "rounded-full bg-primary px-4 text-primary-foreground shadow-sm" : "rounded-full px-4"}
-              >
-                {item.label}
-              </Button>
+            <Link
+              key={item.path}
+              to={item.path}
+              className={`relative whitespace-nowrap py-2 text-sm font-medium transition-colors ${
+                isActive(item.path) ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              {item.label}
+              {isActive(item.path) ? <span className="absolute inset-x-0 -bottom-px h-0.5 rounded-full bg-primary" /> : null}
             </Link>
           ))}
         </nav>
 
         <div className="flex items-center gap-2">
+          <Leaf className="hidden h-5 w-5 text-primary/65 md:block" />
+
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm" className="rounded-full" aria-label={copy.languageSelector}>
+              <Button variant="ghost" size="sm" className="rounded-full px-3" aria-label={copy.languageSelector}>
                 <Globe className="h-4 w-4" />
                 <span className="ml-1 text-xs uppercase">{language}</span>
               </Button>
@@ -123,15 +123,19 @@ export const Header: React.FC = () => {
             variant="outline"
             size="sm"
             onClick={toggleTheme}
-            className="h-10 w-10 rounded-full p-0"
+            className="h-9 w-9 rounded-full border-primary/15 bg-background/70 p-0"
             aria-label={copy.toggleTheme}
           >
             {theme === "light" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
           </Button>
 
+          <Button asChild size="sm" className="hidden rounded-full bg-primary px-5 text-primary-foreground hover:bg-primary/90 sm:inline-flex">
+            <Link to="/resize">{copy.getStarted}</Link>
+          </Button>
+
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm" className="h-10 w-10 rounded-full p-0 lg:hidden" aria-label={copy.openMenu}>
+              <Button variant="outline" size="sm" className="h-9 w-9 rounded-full border-primary/15 bg-background/70 p-0 lg:hidden" aria-label={copy.openMenu}>
                 <Menu className="h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>

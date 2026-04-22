@@ -2,8 +2,10 @@
 logs
 *.log
 .chrome-cdp/
+.playwright-cli/
 .codex-runtime/
 runtime-logs/
+output/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

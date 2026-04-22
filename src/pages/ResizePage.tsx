@@ -10,7 +10,7 @@ import { Switch } from '@/components/ui/switch';
 import { Progress } from '@/components/ui/progress';
 import ToolHero from '@/components/ToolHero';
 import { upscaleCanvas, type UpscaleFactor } from '@/utils/upscale';
-import { logClientError } from '@/utils/clientLogger';
+import { logClientEvent } from '@/utils/clientLogger';
 
 const KEEP_RATIO_TRUE = true;
 const AI_UPSCALE_THRESHOLD = 1.5;
@@ -486,14 +486,20 @@ const ResizePage = () => {
                 targetHeight,
               );
             } catch (upscaleError) {
-              console.warn('AI upscaling failed; falling back to interpolation.', upscaleError);
-              void logClientError('resize.upscale', 'AI upscaling failed; using interpolation fallback', upscaleError, {
-                factor: upscaleFactor,
-                sourceHeight,
-                sourceWidth,
-                targetHeight,
-                targetWidth,
-              });
+              if (import.meta.env.DEV) {
+                void logClientEvent({
+                  category: 'resize.upscale',
+                  details: {
+                    factor: upscaleFactor,
+                    sourceHeight,
+                    sourceWidth,
+                    targetHeight,
+                    targetWidth,
+                  },
+                  level: 'debug',
+                  message: 'AI upscaling fallback used during resize',
+                });
+              }
               resizedCanvas = resizeImageWithInterpolation(img, targetWidth, targetHeight);
               setInfo(copy.messages.aiUpscaleFallback);
             }

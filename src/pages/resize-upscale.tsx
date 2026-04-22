@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Upload, Download, Maximize2, Loader2, AlertCircle, ImageIcon } from "@/components/icons";
+import { Upload, Download, Maximize2, Loader2, AlertCircle, ImageIcon, Minus, Plus } from "@/components/icons";
 
 import ToolHero from "@/components/ToolHero";
 import { AdSlot } from "@/components/ads/AdSlot";
@@ -31,10 +31,19 @@ import {
   type UpscaleCopy,
   type UpscaleCopyLocale,
   type UpscalePreset,
-  type UpscaleFactorOption,
 } from "@/content/resizeUpscaleCopy";
 
 const ACCEPTED_TYPES = ["image/png", "image/jpeg", "image/webp"] as const;
+const MIN_UPSCALE_FACTOR = 2;
+const MAX_UPSCALE_FACTOR = 10;
+
+const clampUpscaleFactor = (value: number): UpscaleFactor => {
+  if (!Number.isFinite(value)) {
+    return MIN_UPSCALE_FACTOR as UpscaleFactor;
+  }
+
+  return Math.min(MAX_UPSCALE_FACTOR, Math.max(MIN_UPSCALE_FACTOR, Math.round(value))) as UpscaleFactor;
+};
 
 const getPresetById = (presets: readonly UpscalePreset[], id: string) =>
   presets.find((preset) => preset.id === id);
@@ -86,6 +95,14 @@ const ResizeUpscalePage: React.FC = () => {
     setResultSize(null);
     setIsDirty(true);
   }, []);
+
+  const updateUpscaleFactor = useCallback(
+    (value: number) => {
+      setUpscaleFactor(clampUpscaleFactor(value));
+      resetResultState();
+    },
+    [resetResultState],
+  );
 
   const updatePreviewCanvas = useCallback((source: HTMLCanvasElement | HTMLImageElement) => {
     const canvas = canvasRef.current;
@@ -443,26 +460,62 @@ const ResizeUpscalePage: React.FC = () => {
             </div>
 
             <div className="space-y-2">
-              <Label>{copy.upscaleLabel}</Label>
-              <Select
-                value={String(upscaleFactor)}
-                onValueChange={(value) => {
-                  setUpscaleFactor(Number(value) as UpscaleFactor);
-                  resetResultState();
-                }}
-                disabled={!originalSize || processing}
-              >
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {copy.upscaleFactors.map((option: UpscaleFactorOption) => (
-                    <SelectItem key={option.value} value={String(option.value)}>
-                      {option.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <Label htmlFor="upscale-factor">{copy.upscaleLabel}</Label>
+              <div className="grid grid-cols-[2.5rem_1fr_2.5rem] gap-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="icon"
+                  aria-label={copy.decreaseUpscaleLabel}
+                  disabled={!originalSize || processing || upscaleFactor <= MIN_UPSCALE_FACTOR}
+                  onClick={() => updateUpscaleFactor(upscaleFactor - 1)}
+                >
+                  <Minus className="h-4 w-4" />
+                </Button>
+                <div className="relative">
+                  <Input
+                    id="upscale-factor"
+                    type="number"
+                    min={MIN_UPSCALE_FACTOR}
+                    max={MAX_UPSCALE_FACTOR}
+                    step={1}
+                    inputMode="numeric"
+                    value={upscaleFactor}
+                    onChange={(event) => updateUpscaleFactor(Number(event.target.value))}
+                    disabled={!originalSize || processing}
+                    className="h-10 pr-9 text-center text-base font-semibold"
+                  />
+                  <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-sm font-medium text-muted-foreground">
+                    ×
+                  </span>
+                </div>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="icon"
+                  aria-label={copy.increaseUpscaleLabel}
+                  disabled={!originalSize || processing || upscaleFactor >= MAX_UPSCALE_FACTOR}
+                  onClick={() => updateUpscaleFactor(upscaleFactor + 1)}
+                >
+                  <Plus className="h-4 w-4" />
+                </Button>
+              </div>
+              <div className="grid grid-cols-5 gap-2">
+                {copy.upscaleFactors.map((option) => (
+                  <Button
+                    key={option.value}
+                    type="button"
+                    variant={upscaleFactor === option.value ? "default" : "outline"}
+                    size="sm"
+                    disabled={!originalSize || processing}
+                    onClick={() => updateUpscaleFactor(option.value)}
+                    className="h-8 px-2 text-xs"
+                  >
+                    {option.label}
+                  </Button>
+                ))}
+              </div>
+              <p className="text-xs text-muted-foreground">{copy.upscaleRangeHelp}</p>
             </div>
           </CardContent>
           <CardFooter className="flex flex-col gap-3 sm:flex-row sm:justify-between">

@@ -3,407 +3,456 @@ import { Link } from "react-router-dom";
 import {
   ArrowRight,
   CheckCircle2,
+  ChevronLeft,
+  ChevronRight,
   Cpu,
   Eraser,
+  ImageIcon,
+  Leaf,
   RefreshCw,
   RotateCcw,
   Scissors,
   Sparkles,
   StretchHorizontal,
+  Upload,
+  Wand2,
 } from "@/components/icons";
 
 import { AdSlot } from "@/components/ads/AdSlot";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const HOME_COPY = {
   en: {
-    heroTitle: "Image workflows built for trust",
+    eyebrow: "Natural browser editing",
+    heroTitle: "Cultivate visual clarity with a gentle workflow.",
     heroDescription:
-      "Resize, convert, remove backgrounds, and prepare images for publishing directly in the browser with clear privacy and advertising disclosures.",
-    subDescription:
-      "All image processing runs locally on your device rather than our server, which keeps the site free to use. On lower-end hardware, heavier AI steps can take longer.",
-    primaryCta: "Open resize tool",
-    secondaryCta: "Review policies",
-    quickActionsTitle: "What you can do right now",
-    quickActionsDescription:
-      "Professional browser-first image tools with a restrained interface and clear operational scope.",
-    sectionTitle: "Available tools",
-    sectionDescription: "Every tool below is reachable, usable, and described in plain language.",
-    trustTitle: "Why this site is ready for advertisers",
-    trustDescription:
-      "Clear ownership, transparent policies, honest feature availability, and content that matches the actual product.",
+      "ImageMagic helps you resize, convert, remove backgrounds, upscale with AI, and clean image details without sending files through a heavy workflow.",
+    primaryCta: "Start creating",
+    secondaryCta: "View tools",
+    toolsTitle: "Transformative tools",
+    toolsDescription:
+      "Compare the difference before opening a tool. Each workflow is focused on practical image cleanup and export-ready results.",
+    previousLabel: "Previous tool preview",
+    nextLabel: "Next tool preview",
+    beforeLabel: "Before",
+    afterLabel: "After",
     openTool: "Open tool",
-    tools: [
+    workflowTitle: "Local-first workflow",
+    workflowDescription:
+      "The main tools process images in the browser whenever possible, reducing upload friction and keeping the editing flow lightweight.",
+    workflowAction: "Learn about privacy",
+    fineTuneTitle: "Fine-tune adjustments",
+    fineTuneDescription:
+      "Practical controls for size, format, background cleanup, and high-resolution output stay close to the image.",
+    roadmapTitle: "Next capabilities",
+    roadmapDescription:
+      "These additions fit the same calm workflow while expanding what ImageMagic can edit.",
+    trustItems: ["Browser processing", "No account required", "Clear export controls"],
+    stories: [
       {
-        title: "Resize images",
-        description:
-          "Adjust width and height with presets or custom dimensions while keeping control over aspect ratio.",
+        title: "Smart Resize",
+        caption: "Prepare clean dimensions for publishing.",
         path: "/resize",
-        color: "from-sky-500 to-cyan-500",
-        icon: RotateCcw,
+        scene: "photo-scene-landscape",
       },
       {
-        title: "Convert formats",
-        description: "Export browser-friendly JPG, PNG, and WEBP files from common raster image uploads.",
-        path: "/convert",
-        color: "from-emerald-500 to-green-500",
-        icon: RefreshCw,
-      },
-      {
-        title: "Remove backgrounds",
-        description: "Run local AI segmentation and download transparent PNG output for ecommerce and creative use.",
+        title: "Background Eraser",
+        caption: "Isolate subjects with local AI precision.",
         path: "/remove-background",
-        color: "from-fuchsia-500 to-pink-500",
-        icon: Scissors,
+        scene: "photo-scene-product",
       },
       {
-        title: "Resize and upscale",
-        description:
-          "Combine size adjustments with high-resolution export when you need a single publishing workflow.",
+        title: "AI Upscale",
+        caption: "Increase resolution from 2x to 10x.",
         path: "/resize-upscale",
-        color: "from-violet-500 to-indigo-500",
-        icon: StretchHorizontal,
+        scene: "photo-scene-portrait",
       },
       {
         title: "Magic Eraser",
-        description:
-          "Paint a shared removal mask and batch-clean repeated objects across many files.",
+        caption: "Remove repeated marks and objects.",
         path: "/magic-brush",
-        color: "from-orange-500 to-red-500",
-        icon: Eraser,
+        scene: "photo-scene-cleanup",
       },
     ],
-    highlights: [
-      {
-        title: "Honest availability",
-        description: "Only active tools remain promoted in navigation, SEO, and core landing sections.",
-        icon: CheckCircle2,
-      },
-      {
-        title: "Local processing",
-        description: "Core image workflows run on-device unless a future server-side feature is clearly disclosed.",
-        icon: Cpu,
-      },
-      {
-        title: "Cleaner monetization setup",
-        description: "Ad placements are gated behind real configuration and consent instead of static placeholders.",
-        icon: Sparkles,
-      },
+    tools: [
+      { title: "Resize", path: "/resize", icon: RotateCcw },
+      { title: "Convert", path: "/convert", icon: RefreshCw },
+      { title: "Remove background", path: "/remove-background", icon: Scissors },
+      { title: "AI upscale", path: "/resize-upscale", icon: StretchHorizontal },
+      { title: "Magic Eraser", path: "/magic-brush", icon: Eraser },
     ],
-    trustPoints: [
-      "All image processing happens locally in the browser on the user's device, not on our server.",
-      "There is no paid server-side image processing cost behind the tools, which helps keep the site free to use.",
-      "Performance depends on the device, so heavier AI steps may take longer on lower-end hardware.",
+    roadmap: [
+      {
+        title: "Smart crop presets",
+        description: "Automatic crops for marketplaces, social posts, banners, and thumbnails.",
+        icon: ImageIcon,
+      },
+      {
+        title: "Batch export queue",
+        description: "Apply one setup to many images and download the results as a ZIP.",
+        icon: Upload,
+      },
+      {
+        title: "Color and light match",
+        description: "Unify exposure and temperature across product photos from different sessions.",
+        icon: Wand2,
+      },
     ],
   },
   pt: {
-    heroTitle: "Fluxos de imagem feitos para gerar confiança",
+    eyebrow: "Edição natural no navegador",
+    heroTitle: "Cultive clareza visual com um fluxo leve.",
     heroDescription:
-      "Redimensione, converta, remova fundos e prepare imagens para publicação direto no navegador com políticas claras de privacidade e publicidade.",
-    subDescription:
-      "Todo o processamento de imagem roda localmente no seu equipamento, e não no nosso servidor, o que mantém o site gratuito. Em hardware mais fraco, etapas pesadas de IA podem demorar mais.",
-    primaryCta: "Abrir redimensionador",
-    secondaryCta: "Ver políticas",
-    quickActionsTitle: "O que você pode fazer agora",
-    quickActionsDescription:
-      "Ferramentas profissionais de imagem no navegador com interface limpa e escopo operacional claro.",
-    sectionTitle: "Ferramentas disponíveis",
-    sectionDescription: "Cada ferramenta abaixo está acessível, utilizável e descrita com linguagem objetiva.",
-    trustTitle: "Por que este site está pronto para anunciantes",
-    trustDescription:
-      "Identidade clara, políticas transparentes, disponibilidade honesta dos recursos e conteúdo coerente com o produto real.",
+      "O ImageMagic ajuda a redimensionar, converter, remover fundos, ampliar com IA e limpar detalhes da imagem sem enviar arquivos por um fluxo pesado.",
+    primaryCta: "Começar criação",
+    secondaryCta: "Ver ferramentas",
+    toolsTitle: "Ferramentas transformadoras",
+    toolsDescription:
+      "Compare a diferença antes de abrir uma ferramenta. Cada fluxo é focado em limpeza prática de imagem e resultado pronto para exportar.",
+    previousLabel: "Prévia anterior",
+    nextLabel: "Próxima prévia",
+    beforeLabel: "Antes",
+    afterLabel: "Depois",
     openTool: "Abrir ferramenta",
-    tools: [
+    workflowTitle: "Fluxo local primeiro",
+    workflowDescription:
+      "As principais ferramentas processam imagens no navegador sempre que possível, reduzindo fricção de upload e mantendo a edição leve.",
+    workflowAction: "Ver privacidade",
+    fineTuneTitle: "Ajustes finos",
+    fineTuneDescription:
+      "Controles práticos de tamanho, formato, remoção de fundo e alta resolução ficam perto da imagem.",
+    roadmapTitle: "Próximos recursos",
+    roadmapDescription:
+      "Estas evoluções mantêm o mesmo fluxo calmo enquanto ampliam o que o ImageMagic consegue editar.",
+    trustItems: ["Processamento no navegador", "Sem conta obrigatória", "Exportação clara"],
+    stories: [
       {
-        title: "Redimensionar imagens",
-        description:
-          "Ajuste largura e altura com presets ou medidas personalizadas mantendo controle da proporção.",
+        title: "Redimensionamento inteligente",
+        caption: "Prepare medidas limpas para publicação.",
         path: "/resize",
-        color: "from-sky-500 to-cyan-500",
-        icon: RotateCcw,
+        scene: "photo-scene-landscape",
       },
       {
-        title: "Converter formatos",
-        description: "Exporte arquivos JPG, PNG e WEBP a partir de imagens raster comuns enviadas pelo navegador.",
-        path: "/convert",
-        color: "from-emerald-500 to-green-500",
-        icon: RefreshCw,
-      },
-      {
-        title: "Remover fundos",
-        description: "Execute segmentação local com IA e baixe PNGs transparentes para ecommerce e criação.",
+        title: "Removedor de fundo",
+        caption: "Isole sujeitos com precisão local por IA.",
         path: "/remove-background",
-        color: "from-fuchsia-500 to-pink-500",
-        icon: Scissors,
+        scene: "photo-scene-product",
       },
       {
-        title: "Redimensionar e ampliar",
-        description: "Combine ajuste de tamanho e exportação em alta resolução em um único fluxo de publicação.",
+        title: "Upscale com IA",
+        caption: "Amplie a resolução de 2x a 10x.",
         path: "/resize-upscale",
-        color: "from-violet-500 to-indigo-500",
-        icon: StretchHorizontal,
+        scene: "photo-scene-portrait",
       },
       {
         title: "Borracha mágica",
-        description:
-          "Pinte uma máscara de remoção compartilhada e limpe objetos repetidos em vários arquivos.",
+        caption: "Remova marcas e objetos repetidos.",
         path: "/magic-brush",
-        color: "from-orange-500 to-red-500",
-        icon: Eraser,
+        scene: "photo-scene-cleanup",
       },
     ],
-    highlights: [
-      {
-        title: "Disponibilidade honesta",
-        description: "Só ferramentas ativas continuam promovidas na navegação, no SEO e nas áreas principais.",
-        icon: CheckCircle2,
-      },
-      {
-        title: "Processamento local",
-        description:
-          "Os fluxos principais de imagem rodam no dispositivo, salvo quando um recurso futuro informar o contrário com clareza.",
-        icon: Cpu,
-      },
-      {
-        title: "Monetização mais limpa",
-        description: "Os espaços de anúncio dependem de configuração real e consentimento, não de placeholders estáticos.",
-        icon: Sparkles,
-      },
+    tools: [
+      { title: "Redimensionar", path: "/resize", icon: RotateCcw },
+      { title: "Converter", path: "/convert", icon: RefreshCw },
+      { title: "Remover fundo", path: "/remove-background", icon: Scissors },
+      { title: "Upscale IA", path: "/resize-upscale", icon: StretchHorizontal },
+      { title: "Borracha mágica", path: "/magic-brush", icon: Eraser },
     ],
-    trustPoints: [
-      "Todo o processamento de imagem acontece localmente no navegador, no equipamento do usuário, e não no servidor.",
-      "Não existe custo de processamento de imagem em servidor por trás das ferramentas, o que ajuda a manter o site gratuito.",
-      "O desempenho depende do dispositivo, então etapas mais pesadas de IA podem demorar em hardware com poucos recursos.",
+    roadmap: [
+      {
+        title: "Cortes inteligentes",
+        description: "Crops automáticos para marketplaces, posts, banners e miniaturas.",
+        icon: ImageIcon,
+      },
+      {
+        title: "Fila de exportação em lote",
+        description: "Aplique uma configuração a várias imagens e baixe os resultados em ZIP.",
+        icon: Upload,
+      },
+      {
+        title: "Igualar cor e luz",
+        description: "Padronize exposição e temperatura em fotos de produtos de sessões diferentes.",
+        icon: Wand2,
+      },
     ],
   },
   es: {
-    heroTitle: "Flujos de imagen hechos para generar confianza",
+    eyebrow: "Edición natural en el navegador",
+    heroTitle: "Cultiva claridad visual con un flujo ligero.",
     heroDescription:
-      "Redimensiona, convierte, elimina fondos y prepara imágenes para publicar directamente en el navegador con políticas claras de privacidad y publicidad.",
-    subDescription:
-      "Todo el procesamiento de imagen se ejecuta localmente en tu dispositivo y no en nuestro servidor, lo que mantiene el sitio gratuito. En hardware modesto, los pasos de IA más pesados pueden tardar más.",
-    primaryCta: "Abrir redimensionador",
-    secondaryCta: "Ver políticas",
-    quickActionsTitle: "Lo que puedes hacer ahora",
-    quickActionsDescription:
-      "Herramientas profesionales de imagen en el navegador con una interfaz limpia y un alcance operativo claro.",
-    sectionTitle: "Herramientas disponibles",
-    sectionDescription: "Cada herramienta siguiente está accesible, se puede usar y se describe con lenguaje claro.",
-    trustTitle: "Por qué este sitio está listo para anunciantes",
-    trustDescription:
-      "Identidad clara, políticas transparentes, disponibilidad honesta de funciones y contenido alineado con el producto real.",
+      "ImageMagic ayuda a redimensionar, convertir, eliminar fondos, ampliar con IA y limpiar detalles sin enviar archivos por un flujo pesado.",
+    primaryCta: "Empezar creación",
+    secondaryCta: "Ver herramientas",
+    toolsTitle: "Herramientas transformadoras",
+    toolsDescription:
+      "Compara la diferencia antes de abrir una herramienta. Cada flujo se centra en limpieza práctica y resultados listos para exportar.",
+    previousLabel: "Vista anterior",
+    nextLabel: "Vista siguiente",
+    beforeLabel: "Antes",
+    afterLabel: "Después",
     openTool: "Abrir herramienta",
-    tools: [
+    workflowTitle: "Flujo local primero",
+    workflowDescription:
+      "Las herramientas principales procesan imágenes en el navegador siempre que sea posible, reduciendo fricción de carga y manteniendo la edición ligera.",
+    workflowAction: "Ver privacidad",
+    fineTuneTitle: "Ajustes finos",
+    fineTuneDescription:
+      "Controles prácticos de tamaño, formato, fondo y alta resolución permanecen cerca de la imagen.",
+    roadmapTitle: "Próximas funciones",
+    roadmapDescription:
+      "Estas mejoras conservan el mismo flujo tranquilo mientras amplían lo que ImageMagic puede editar.",
+    trustItems: ["Procesamiento en navegador", "Sin cuenta obligatoria", "Exportación clara"],
+    stories: [
       {
-        title: "Redimensionar imágenes",
-        description:
-          "Ajusta el ancho y la altura con presets o medidas personalizadas manteniendo el control de la proporción.",
+        title: "Redimensionado inteligente",
+        caption: "Prepara medidas limpias para publicar.",
         path: "/resize",
-        color: "from-sky-500 to-cyan-500",
-        icon: RotateCcw,
+        scene: "photo-scene-landscape",
       },
       {
-        title: "Convertir formatos",
-        description: "Exporta archivos JPG, PNG y WEBP a partir de imágenes raster comunes cargadas en el navegador.",
-        path: "/convert",
-        color: "from-emerald-500 to-green-500",
-        icon: RefreshCw,
-      },
-      {
-        title: "Eliminar fondos",
-        description: "Ejecuta segmentación local con IA y descarga PNG transparentes para ecommerce y creatividad.",
+        title: "Borrador de fondo",
+        caption: "Aísla sujetos con precisión local por IA.",
         path: "/remove-background",
-        color: "from-fuchsia-500 to-pink-500",
-        icon: Scissors,
+        scene: "photo-scene-product",
       },
       {
-        title: "Redimensionar y ampliar",
-        description:
-          "Combina ajuste de tamaño y exportación en alta resolución en un único flujo de publicación.",
+        title: "Upscale con IA",
+        caption: "Amplía resolución de 2x a 10x.",
         path: "/resize-upscale",
-        color: "from-violet-500 to-indigo-500",
-        icon: StretchHorizontal,
+        scene: "photo-scene-portrait",
       },
       {
         title: "Borrador mágico",
-        description:
-          "Pinta una máscara de eliminación compartida y limpia objetos repetidos en varios archivos.",
+        caption: "Elimina marcas y objetos repetidos.",
         path: "/magic-brush",
-        color: "from-orange-500 to-red-500",
-        icon: Eraser,
+        scene: "photo-scene-cleanup",
       },
     ],
-    highlights: [
-      {
-        title: "Disponibilidad honesta",
-        description: "Solo las herramientas activas siguen visibles en la navegación, el SEO y las áreas principales.",
-        icon: CheckCircle2,
-      },
-      {
-        title: "Procesamiento local",
-        description:
-          "Los flujos principales de imagen se ejecutan en el dispositivo salvo que una función futura indique claramente lo contrario.",
-        icon: Cpu,
-      },
-      {
-        title: "Monetización más limpia",
-        description:
-          "Los espacios publicitarios dependen de una configuración real y del consentimiento, no de placeholders estáticos.",
-        icon: Sparkles,
-      },
+    tools: [
+      { title: "Redimensionar", path: "/resize", icon: RotateCcw },
+      { title: "Convertir", path: "/convert", icon: RefreshCw },
+      { title: "Eliminar fondo", path: "/remove-background", icon: Scissors },
+      { title: "Upscale IA", path: "/resize-upscale", icon: StretchHorizontal },
+      { title: "Borrador mágico", path: "/magic-brush", icon: Eraser },
     ],
-    trustPoints: [
-      "Todo el procesamiento de imagen ocurre localmente en el navegador, en el dispositivo del usuario, y no en el servidor.",
-      "No existe costo de procesamiento de imágenes en servidor detrás de las herramientas, lo que ayuda a mantener el sitio gratuito.",
-      "El rendimiento depende del dispositivo, por lo que los pasos de IA más pesados pueden tardar más en hardware con pocos recursos.",
+    roadmap: [
+      {
+        title: "Recortes inteligentes",
+        description: "Crops automáticos para marketplaces, posts, banners y miniaturas.",
+        icon: ImageIcon,
+      },
+      {
+        title: "Cola de exportación por lote",
+        description: "Aplica una configuración a muchas imágenes y descarga resultados como ZIP.",
+        icon: Upload,
+      },
+      {
+        title: "Igualar color y luz",
+        description: "Unifica exposición y temperatura en fotos de producto de distintas sesiones.",
+        icon: Wand2,
+      },
     ],
   },
 } as const;
 
+const getVisibleStories = <T,>(items: readonly T[], startIndex: number) => {
+  const first = items[startIndex % items.length];
+  const second = items[(startIndex + 1) % items.length];
+  return [first, second] as const;
+};
+
 const Index = () => {
   const { language } = useLanguage();
   const copy = HOME_COPY[language];
+  const [storyIndex, setStoryIndex] = React.useState(0);
+  const visibleStories = getVisibleStories(copy.stories, storyIndex);
+
+  const previousStory = () => {
+    setStoryIndex((current) => (current - 1 + copy.stories.length) % copy.stories.length);
+  };
+
+  const nextStory = () => {
+    setStoryIndex((current) => (current + 1) % copy.stories.length);
+  };
 
   return (
-    <div className="space-y-16 pb-16 pt-6">
-      <section className="container">
-        <div className="grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
-          <Card className="overflow-hidden">
-            <CardContent className="p-8 md:p-10">
-              <div className="space-y-8">
-                <div className="inline-flex items-center gap-3 rounded-full border border-border/70 bg-background/80 px-4 py-2 text-sm text-muted-foreground">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-2xl bg-gradient-primary shadow-sm">
-                    <Sparkles className="h-4 w-4 text-primary-foreground" />
+    <div className="home-nature overflow-hidden pb-16">
+      <section className="container grid min-h-[calc(100vh-4rem)] items-center gap-12 py-12 lg:grid-cols-[0.92fr_1.08fr] lg:py-20">
+        <div className="max-w-2xl space-y-7">
+          <div className="inline-flex items-center gap-2 rounded-full bg-primary/12 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
+            <Leaf className="h-4 w-4" />
+            {copy.eyebrow}
+          </div>
+
+          <div className="space-y-5">
+            <h1 className="text-4xl font-semibold leading-[1.08] tracking-tight text-foreground md:text-6xl">
+              {copy.heroTitle}
+            </h1>
+            <p className="max-w-xl text-base leading-8 text-muted-foreground md:text-lg">{copy.heroDescription}</p>
+          </div>
+
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <Button asChild size="lg" className="rounded-full bg-primary px-7 text-primary-foreground hover:bg-primary/90">
+              <Link to="/resize">
+                {copy.primaryCta}
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+            <Button asChild variant="secondary" size="lg" className="rounded-full px-7">
+              <a href="#tools">{copy.secondaryCta}</a>
+            </Button>
+          </div>
+
+          <div className="grid gap-3 pt-3 sm:grid-cols-3">
+            {copy.trustItems.map((item) => (
+              <div key={item} className="flex items-center gap-2 text-sm text-muted-foreground">
+                <CheckCircle2 className="h-4 w-4 flex-none text-primary" />
+                <span>{item}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="nature-hero-image min-h-[360px] lg:min-h-[520px]" aria-hidden="true" />
+      </section>
+
+      <section id="tools" className="bg-secondary/40 py-16 md:py-24">
+        <div className="container space-y-12">
+          <div className="mx-auto max-w-2xl space-y-4 text-center">
+            <h2 className="text-3xl font-semibold tracking-tight text-foreground md:text-4xl">{copy.toolsTitle}</h2>
+            <p className="text-base leading-7 text-muted-foreground">{copy.toolsDescription}</p>
+          </div>
+
+          <div className="relative mx-auto grid max-w-5xl gap-10 md:grid-cols-2" aria-live="polite">
+            {visibleStories.map((story, index) => (
+              <article
+                key={`${story.title}-${storyIndex}`}
+                className={`polaroid-card ${index === 0 ? "md:-rotate-3" : "md:rotate-3 md:translate-y-4"}`}
+              >
+                <div className={`polaroid-photo ${story.scene}`}>
+                  <div className="photo-half photo-before">
+                    <span>{copy.beforeLabel}</span>
                   </div>
-                  <span className="font-medium uppercase tracking-[0.2em] text-foreground/80">ImageMagic</span>
+                  <div className="photo-half photo-after">
+                    <span>{copy.afterLabel}</span>
+                  </div>
+                  <div className="photo-divider" />
+                  <div className="photo-handle">‹›</div>
                 </div>
-
-                <div className="space-y-4">
-                  <h1 className="max-w-4xl text-4xl font-semibold tracking-tight md:text-6xl">{copy.heroTitle}</h1>
-                  <p className="max-w-3xl text-lg leading-8 text-muted-foreground md:text-xl">{copy.heroDescription}</p>
-                  <p className="max-w-2xl text-base leading-7 text-muted-foreground">{copy.subDescription}</p>
-                </div>
-
-                <div className="flex flex-col gap-3 sm:flex-row">
-                  <Button asChild size="lg" className="min-w-[220px]">
-                    <Link to="/resize">
-                      {copy.primaryCta}
+                <div className="px-2 pt-5 text-center">
+                  <h3 className="text-xl font-semibold tracking-tight text-primary">{story.title}</h3>
+                  <p className="mt-2 text-sm italic leading-6 text-muted-foreground">{story.caption}</p>
+                  <Button asChild variant="ghost" size="sm" className="mt-3 rounded-full text-primary">
+                    <Link to={story.path}>
+                      {copy.openTool}
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
                   </Button>
-                  <Button asChild variant="outline" size="lg" className="min-w-[180px]">
-                    <Link to="/privacy">{copy.secondaryCta}</Link>
-                  </Button>
                 </div>
+              </article>
+            ))}
 
-                <div className="grid gap-4 md:grid-cols-3">
-                  {copy.highlights.map((item) => {
-                    const Icon = item.icon;
-                    return (
-                      <div key={item.title} className="rounded-2xl border border-border/70 bg-background/80 p-5 shadow-sm">
-                        <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl bg-secondary text-primary">
-                          <Icon className="h-5 w-5" />
-                        </div>
-                        <h3 className="text-base font-semibold tracking-tight">{item.title}</h3>
-                        <p className="mt-2 text-sm leading-6 text-muted-foreground">{item.description}</p>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <div className="space-y-6">
-            <Card>
-              <CardHeader className="space-y-3">
-                <CardTitle className="text-xl">{copy.quickActionsTitle}</CardTitle>
-                <CardDescription>{copy.quickActionsDescription}</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                {copy.tools.slice(0, 4).map((tool) => {
-                  const Icon = tool.icon;
-                  return (
-                    <Link
-                      key={tool.path}
-                      to={tool.path}
-                      className="flex items-center justify-between rounded-2xl border border-border/70 bg-background/80 px-4 py-4 transition-colors hover:border-primary/35 hover:bg-accent"
-                    >
-                      <div className="flex items-center gap-4">
-                        <div className={`flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br ${tool.color}`}>
-                          <Icon className="h-5 w-5 text-white" />
-                        </div>
-                        <div>
-                          <div className="font-medium text-foreground">{tool.title}</div>
-                          <div className="text-sm text-muted-foreground">{tool.description}</div>
-                        </div>
-                      </div>
-                      <ArrowRight className="h-4 w-4 text-muted-foreground" />
-                    </Link>
-                  );
-                })}
-              </CardContent>
-            </Card>
-
-            <AdSlot slot="home-featured-placement" className="h-40 rounded-[2rem] border border-border/70 bg-card/90 shadow-sm" />
-          </div>
-        </div>
-      </section>
-
-      <section className="container">
-        <div className="space-y-5">
-          <div className="space-y-2">
-            <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">{copy.sectionTitle}</h2>
-            <p className="max-w-2xl text-base leading-7 text-muted-foreground">{copy.sectionDescription}</p>
+            <div className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-2 md:flex">
+              <Button
+                variant="secondary"
+                size="sm"
+                className="h-10 w-10 rounded-full p-0 shadow-sm"
+                onClick={previousStory}
+                aria-label={copy.previousLabel}
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="secondary"
+                size="sm"
+                className="h-10 w-10 rounded-full p-0 shadow-sm"
+                onClick={nextStory}
+                aria-label={copy.nextLabel}
+              >
+                <ChevronRight className="h-4 w-4" />
+              </Button>
+            </div>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          <div className="flex justify-center gap-3 md:hidden">
+            <Button variant="secondary" size="sm" className="h-10 w-10 rounded-full p-0" onClick={previousStory} aria-label={copy.previousLabel}>
+              <ChevronLeft className="h-4 w-4" />
+            </Button>
+            <Button variant="secondary" size="sm" className="h-10 w-10 rounded-full p-0" onClick={nextStory} aria-label={copy.nextLabel}>
+              <ChevronRight className="h-4 w-4" />
+            </Button>
+          </div>
+
+          <div className="mx-auto flex max-w-4xl flex-wrap justify-center gap-3">
             {copy.tools.map((tool) => {
               const Icon = tool.icon;
               return (
-                <Card key={tool.path} className="tool-card">
-                  <CardHeader className="space-y-4">
-                    <div className={`flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${tool.color}`}>
-                      <Icon className="h-5 w-5 text-white" />
-                    </div>
-                    <div className="space-y-2">
-                      <CardTitle className="text-xl">{tool.title}</CardTitle>
-                      <CardDescription>{tool.description}</CardDescription>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <Button asChild variant="outline" className="w-full justify-between">
-                      <Link to={tool.path}>
-                        {copy.openTool}
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </Link>
-                    </Button>
-                  </CardContent>
-                </Card>
+                <Link
+                  key={tool.path}
+                  to={tool.path}
+                  className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-background/70 px-4 py-2 text-sm font-medium text-primary transition hover:border-primary/40 hover:bg-background"
+                >
+                  <Icon className="h-4 w-4" />
+                  {tool.title}
+                </Link>
               );
             })}
           </div>
         </div>
       </section>
 
-      <section className="container">
-        <Card>
-          <CardHeader className="space-y-3">
-            <CardTitle className="text-3xl">{copy.trustTitle}</CardTitle>
-            <CardDescription className="max-w-3xl text-base">{copy.trustDescription}</CardDescription>
-          </CardHeader>
-          <CardContent className="grid gap-4 lg:grid-cols-3">
-            {copy.trustPoints.map((point) => (
-              <div key={point} className="flex items-start gap-3 rounded-2xl border border-border/70 bg-background/80 p-5">
-                <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" />
-                <span className="text-sm leading-6 text-muted-foreground">{point}</span>
-              </div>
-            ))}
-          </CardContent>
-        </Card>
+      <section className="container grid gap-6 py-16 lg:grid-cols-[1.5fr_0.72fr]">
+        <div className="grid overflow-hidden rounded-[16px] bg-secondary/70 p-8 md:grid-cols-[1fr_0.58fr] md:p-10">
+          <div className="max-w-xl self-center space-y-4">
+            <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">{copy.workflowTitle}</h2>
+            <p className="text-sm leading-7 text-muted-foreground md:text-base">{copy.workflowDescription}</p>
+            <Button asChild variant="ghost" className="rounded-full px-0 text-primary hover:bg-transparent">
+              <Link to="/privacy">
+                {copy.workflowAction}
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
+          <div className="mt-8 flex min-h-48 items-center justify-center rounded-[14px] bg-background/55 md:mt-0">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground">
+              <Cpu className="h-8 w-8" />
+            </div>
+          </div>
+        </div>
+
+        <div className="rounded-[16px] bg-secondary/70 p-8 md:p-10">
+          <Sparkles className="h-7 w-7 text-primary" />
+          <div className="mt-20 space-y-3">
+            <h2 className="text-xl font-semibold tracking-tight">{copy.fineTuneTitle}</h2>
+            <p className="text-sm leading-6 text-muted-foreground">{copy.fineTuneDescription}</p>
+          </div>
+        </div>
       </section>
+
+      <section className="container grid gap-8 pb-10 lg:grid-cols-[0.72fr_1.28fr]">
+        <div className="space-y-3">
+          <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">{copy.roadmapTitle}</h2>
+          <p className="text-sm leading-7 text-muted-foreground md:text-base">{copy.roadmapDescription}</p>
+        </div>
+
+        <div className="grid gap-4 md:grid-cols-3">
+          {copy.roadmap.map((feature) => {
+            const Icon = feature.icon;
+            return (
+              <div key={feature.title} className="rounded-[14px] bg-background/70 p-5 shadow-sm">
+                <Icon className="h-6 w-6 text-primary" />
+                <h3 className="mt-8 text-base font-semibold tracking-tight">{feature.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">{feature.description}</p>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      <div className="container">
+        <AdSlot slot="home-featured-placement" className="min-h-24 rounded-[14px] border border-primary/10 bg-secondary/45 shadow-sm" />
+      </div>
     </div>
   );
 };

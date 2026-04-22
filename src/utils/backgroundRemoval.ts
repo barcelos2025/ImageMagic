@@ -168,6 +168,9 @@ const shouldRetryWithCompatibilityBackend = (error: unknown) => {
   );
 };
 
+const getModelFallbackPlan = (model: BackgroundRemovalModelKey): BackgroundRemovalModelKey[] =>
+  model === "ben2" ? ["ben2"] : [model, "ben2"];
+
 export const removeBackground = async (
   imageElement: HTMLImageElement,
   options: RemoveBackgroundOptions = {},
@@ -188,43 +191,59 @@ export const removeBackground = async (
 
     const inputDataUrl = inferenceCanvas.toDataURL("image/png");
     const preferredDevices: PipelineDevice[] = ["webgpu", "wasm"];
+    const modelFallbackPlan = getModelFallbackPlan(model);
     let resultCanvas: HTMLCanvasElement | null = null;
     let lastError: unknown = null;
 
-    for (let index = 0; index < preferredDevices.length; index += 1) {
-      const device = preferredDevices[index];
-      const isCompatibilityRetry = index > 0;
+    for (const modelCandidate of modelFallbackPlan) {
+      for (let index = 0; index < preferredDevices.length; index += 1) {
+        const device = preferredDevices[index];
+        const isCompatibilityRetry = index > 0 || modelCandidate !== model;
 
-      options.onProgress?.(
-        isCompatibilityRetry
-          ? "compat-retry"
-          : "load-model",
-      );
-
-      try {
-        const remover = await getBackgroundRemovalPipeline(model, device);
         options.onProgress?.(
           isCompatibilityRetry
-            ? "extract-mask-compat"
-            : "extract-mask",
+            ? "compat-retry"
+            : "load-model",
         );
-        const outputs = await remover(inputDataUrl);
-        resultCanvas = outputs[0]?.toCanvas() ?? null;
 
-        if (!resultCanvas) {
-          throw new Error("Background removal did not return a usable image");
+        try {
+          const remover = await getBackgroundRemovalPipeline(modelCandidate, device);
+          options.onProgress?.(
+            isCompatibilityRetry
+              ? "extract-mask-compat"
+              : "extract-mask",
+          );
+          const outputs = await remover(inputDataUrl);
+          resultCanvas = outputs[0]?.toCanvas() ?? null;
+
+          if (!resultCanvas) {
+            throw new Error("Background removal did not return a usable image");
+          }
+
+          break;
+        } catch (error) {
+          lastError = error;
+
+          if (device === "webgpu" && shouldRetryWithCompatibilityBackend(error)) {
+            if (import.meta.env.DEV) {
+              console.debug(`Retrying background removal in WASM compatibility mode for ${modelCandidate}`, error);
+            }
+            continue;
+          }
+
+          if (modelCandidate !== "ben2") {
+            if (import.meta.env.DEV) {
+              console.debug(`Falling back to BEN2 after ${modelCandidate} failed`, error);
+            }
+            break;
+          }
+
+          throw error;
         }
+      }
 
+      if (resultCanvas) {
         break;
-      } catch (error) {
-        lastError = error;
-
-        if (device === "webgpu" && shouldRetryWithCompatibilityBackend(error)) {
-          console.warn(`Retrying background removal in WASM compatibility mode for ${model}`, error);
-          continue;
-        }
-
-        throw error;
       }
     }
 

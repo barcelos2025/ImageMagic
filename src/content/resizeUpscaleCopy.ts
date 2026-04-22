@@ -26,6 +26,9 @@ export interface UpscaleCopy {
   heightLabel: string;
   keepAspectLabel: string;
   upscaleLabel: string;
+  upscaleRangeHelp: string;
+  decreaseUpscaleLabel: string;
+  increaseUpscaleLabel: string;
   resetButton: string;
   processButton: string;
   downloadButton: string;
@@ -74,6 +77,9 @@ export const RESIZE_UPSCALE_COPY: Record<UpscaleCopyLocale, UpscaleCopy> = {
     heightLabel: "Height (px)",
     keepAspectLabel: "Keep aspect ratio",
     upscaleLabel: "Upscale factor",
+    upscaleRangeHelp: "Choose any factor from 2x to 10x.",
+    decreaseUpscaleLabel: "Decrease upscale factor",
+    increaseUpscaleLabel: "Increase upscale factor",
     resetButton: "Reset",
     processButton: "Process",
     downloadButton: "Download",
@@ -105,10 +111,11 @@ export const RESIZE_UPSCALE_COPY: Record<UpscaleCopyLocale, UpscaleCopy> = {
       { id: "3840x2160", label: "3840 × 2160", width: 3840, height: 2160 },
     ],
     upscaleFactors: [
-      { label: "1× (no upscale)", value: 1 },
       { label: "2×", value: 2 },
       { label: "4×", value: 4 },
+      { label: "6×", value: 6 },
       { label: "8×", value: 8 },
+      { label: "10×", value: 10 },
     ],
     messages: {
       unsupportedFormat: "Unsupported format. Choose a JPG, PNG, or WEBP image.",
@@ -137,6 +144,9 @@ export const RESIZE_UPSCALE_COPY: Record<UpscaleCopyLocale, UpscaleCopy> = {
     heightLabel: "Altura (px)",
     keepAspectLabel: "Manter proporção",
     upscaleLabel: "Fator de ampliação",
+    upscaleRangeHelp: "Escolha qualquer fator de 2x a 10x.",
+    decreaseUpscaleLabel: "Diminuir fator de ampliação",
+    increaseUpscaleLabel: "Aumentar fator de ampliação",
     resetButton: "Redefinir",
     processButton: "Processar",
     downloadButton: "Baixar",
@@ -168,10 +178,11 @@ export const RESIZE_UPSCALE_COPY: Record<UpscaleCopyLocale, UpscaleCopy> = {
       { id: "3840x2160", label: "3840 × 2160", width: 3840, height: 2160 },
     ],
     upscaleFactors: [
-      { label: "1× (sem ampliação)", value: 1 },
       { label: "2×", value: 2 },
       { label: "4×", value: 4 },
+      { label: "6×", value: 6 },
       { label: "8×", value: 8 },
+      { label: "10×", value: 10 },
     ],
     messages: {
       unsupportedFormat: "Formato não suportado. Escolha uma imagem JPG, PNG ou WEBP.",
@@ -200,6 +211,9 @@ export const RESIZE_UPSCALE_COPY: Record<UpscaleCopyLocale, UpscaleCopy> = {
     heightLabel: "Alto (px)",
     keepAspectLabel: "Mantener proporción",
     upscaleLabel: "Factor de ampliación",
+    upscaleRangeHelp: "Elige cualquier factor de 2x a 10x.",
+    decreaseUpscaleLabel: "Disminuir factor de ampliación",
+    increaseUpscaleLabel: "Aumentar factor de ampliación",
     resetButton: "Restablecer",
     processButton: "Procesar",
     downloadButton: "Descargar",
@@ -231,10 +245,11 @@ export const RESIZE_UPSCALE_COPY: Record<UpscaleCopyLocale, UpscaleCopy> = {
       { id: "3840x2160", label: "3840 × 2160", width: 3840, height: 2160 },
     ],
     upscaleFactors: [
-      { label: "1× (sin ampliación)", value: 1 },
       { label: "2×", value: 2 },
       { label: "4×", value: 4 },
+      { label: "6×", value: 6 },
       { label: "8×", value: 8 },
+      { label: "10×", value: 10 },
     ],
     messages: {
       unsupportedFormat: "Formato no compatible. Elige una imagen JPG, PNG o WEBP.",

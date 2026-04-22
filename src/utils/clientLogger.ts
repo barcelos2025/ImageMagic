@@ -9,6 +9,11 @@ interface ClientLogPayload {
 
 const LOG_ENDPOINT = "/__debug/client-log";
 
+const shouldUseDebugEndpoint = () =>
+  import.meta.env.DEV ||
+  window.location.hostname === "localhost" ||
+  window.location.hostname === "127.0.0.1";
+
 const getSessionId = () => {
   const existing = sessionStorage.getItem("imagemagic-debug-session");
   if (existing) {
@@ -59,10 +64,16 @@ export const logClientEvent = async ({
   const consoleMethod =
     level === "error" ? console.error : level === "warn" ? console.warn : level === "debug" ? console.debug : console.info;
 
-  consoleMethod("[magic-brush]", message, details ?? {});
+  if (import.meta.env.DEV) {
+    consoleMethod("[magic-brush]", message, details ?? {});
+  }
+
+  if (!shouldUseDebugEndpoint()) {
+    return;
+  }
 
   try {
-    await fetch(LOG_ENDPOINT, {
+    const response = await fetch(LOG_ENDPOINT, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -70,8 +81,14 @@ export const logClientEvent = async ({
       body: JSON.stringify(payload),
       keepalive: true,
     });
+
+    if (!response.ok) {
+      throw new Error(`Client log endpoint returned ${response.status}`);
+    }
   } catch (error) {
-    console.warn("Client log endpoint is unavailable.", normalizeError(error));
+    if (import.meta.env.DEV) {
+      console.warn("Client log endpoint is unavailable.", normalizeError(error));
+    }
   }
 };
 
