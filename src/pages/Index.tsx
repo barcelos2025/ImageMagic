@@ -54,25 +54,29 @@ const HOME_COPY = {
         title: "Smart Resize",
         caption: "Prepare clean dimensions for publishing.",
         path: "/resize",
-        scene: "photo-scene-landscape",
+        beforeImage: "/assets/home-polaroids/resize-before.jpg",
+        afterImage: "/assets/home-polaroids/resize-after.jpg",
       },
       {
         title: "Background Eraser",
         caption: "Isolate subjects with local AI precision.",
         path: "/remove-background",
-        scene: "photo-scene-product",
+        beforeImage: "/assets/home-polaroids/background-before.jpg",
+        afterImage: "/assets/home-polaroids/background-after.jpg",
       },
       {
         title: "AI Upscale",
         caption: "Increase resolution from 2x to 10x.",
         path: "/resize-upscale",
-        scene: "photo-scene-portrait",
+        beforeImage: "/assets/home-polaroids/upscale-before.jpg",
+        afterImage: "/assets/home-polaroids/upscale-after.jpg",
       },
       {
         title: "Magic Eraser",
         caption: "Remove repeated marks and objects.",
         path: "/magic-brush",
-        scene: "photo-scene-cleanup",
+        beforeImage: "/assets/home-polaroids/eraser-before.jpg",
+        afterImage: "/assets/home-polaroids/eraser-after.jpg",
       },
     ],
     tools: [
@@ -131,25 +135,29 @@ const HOME_COPY = {
         title: "Redimensionamento inteligente",
         caption: "Prepare medidas limpas para publicação.",
         path: "/resize",
-        scene: "photo-scene-landscape",
+        beforeImage: "/assets/home-polaroids/resize-before.jpg",
+        afterImage: "/assets/home-polaroids/resize-after.jpg",
       },
       {
         title: "Removedor de fundo",
         caption: "Isole sujeitos com precisão local por IA.",
         path: "/remove-background",
-        scene: "photo-scene-product",
+        beforeImage: "/assets/home-polaroids/background-before.jpg",
+        afterImage: "/assets/home-polaroids/background-after.jpg",
       },
       {
         title: "Upscale com IA",
         caption: "Amplie a resolução de 2x a 10x.",
         path: "/resize-upscale",
-        scene: "photo-scene-portrait",
+        beforeImage: "/assets/home-polaroids/upscale-before.jpg",
+        afterImage: "/assets/home-polaroids/upscale-after.jpg",
       },
       {
         title: "Borracha mágica",
         caption: "Remova marcas e objetos repetidos.",
         path: "/magic-brush",
-        scene: "photo-scene-cleanup",
+        beforeImage: "/assets/home-polaroids/eraser-before.jpg",
+        afterImage: "/assets/home-polaroids/eraser-after.jpg",
       },
     ],
     tools: [
@@ -208,25 +216,29 @@ const HOME_COPY = {
         title: "Redimensionado inteligente",
         caption: "Prepara medidas limpias para publicar.",
         path: "/resize",
-        scene: "photo-scene-landscape",
+        beforeImage: "/assets/home-polaroids/resize-before.jpg",
+        afterImage: "/assets/home-polaroids/resize-after.jpg",
       },
       {
         title: "Borrador de fondo",
         caption: "Aísla sujetos con precisión local por IA.",
         path: "/remove-background",
-        scene: "photo-scene-product",
+        beforeImage: "/assets/home-polaroids/background-before.jpg",
+        afterImage: "/assets/home-polaroids/background-after.jpg",
       },
       {
         title: "Upscale con IA",
         caption: "Amplía resolución de 2x a 10x.",
         path: "/resize-upscale",
-        scene: "photo-scene-portrait",
+        beforeImage: "/assets/home-polaroids/upscale-before.jpg",
+        afterImage: "/assets/home-polaroids/upscale-after.jpg",
       },
       {
         title: "Borrador mágico",
         caption: "Elimina marcas y objetos repetidos.",
         path: "/magic-brush",
-        scene: "photo-scene-cleanup",
+        beforeImage: "/assets/home-polaroids/eraser-before.jpg",
+        afterImage: "/assets/home-polaroids/eraser-after.jpg",
       },
     ],
     tools: [
@@ -330,11 +342,11 @@ const Index = () => {
                 key={`${story.title}-${storyIndex}`}
                 className={`polaroid-card ${index === 0 ? "md:-rotate-3" : "md:rotate-3 md:translate-y-4"}`}
               >
-                <div className={`polaroid-photo ${story.scene}`}>
-                  <div className="photo-half photo-before">
+                <div className="polaroid-photo">
+                  <div className="photo-half photo-before" style={{ backgroundImage: `url(${story.beforeImage})` }}>
                     <span>{copy.beforeLabel}</span>
                   </div>
-                  <div className="photo-half photo-after">
+                  <div className="photo-half photo-after" style={{ backgroundImage: `url(${story.afterImage})` }}>
                     <span>{copy.afterLabel}</span>
                   </div>
                   <div className="photo-divider" />
