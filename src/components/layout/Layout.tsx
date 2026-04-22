@@ -3,7 +3,6 @@ import { useLocation } from "react-router-dom";
 
 import { AdSlot } from "@/components/ads/AdSlot";
 import ConsentBanner from "@/components/ConsentBanner";
-import LocalProcessingNotice from "@/components/LocalProcessingNotice";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 
@@ -19,12 +18,9 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
     <div className="flex min-h-screen flex-col">
       <Header />
       {!isHome ? (
-        <>
-          <div className="container py-4">
-            <AdSlot slot="sponsored-placement" />
-          </div>
-          <LocalProcessingNotice />
-        </>
+        <div className="container py-4">
+          <AdSlot slot="sponsored-placement" />
+        </div>
       ) : null}
       <main className="flex-1" role="main">
         {children}

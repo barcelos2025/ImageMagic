@@ -5,6 +5,8 @@ import { AlertCircle, Download, Scissors, Sparkles, Upload, Wand2 } from "@/comp
 
 import ToolHero from "@/components/ToolHero";
 import { AdSlot } from "@/components/ads/AdSlot";
+import LocalProcessingNotice from "@/components/LocalProcessingNotice";
+import { ResultImagePreview } from "@/components/ResultImagePreview";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -383,10 +385,14 @@ const RemoveBackgroundPage = () => {
           <CardContent>
             {processedImageUrl ? (
               <div className="space-y-4">
-                <img
+                <ResultImagePreview
                   src={processedImageUrl}
                   alt={copy.resultAlt}
                   className="w-full rounded-lg border"
+                  dialogImageStyle={{
+                    background:
+                      "repeating-conic-gradient(#808080 0% 25%, transparent 0% 50%) 50% / 20px 20px",
+                  }}
                   style={{
                     maxHeight: "300px",
                     objectFit: "contain",
@@ -433,6 +439,8 @@ const RemoveBackgroundPage = () => {
           {!isProcessing && progress === 100 ? <p>{copy.completed}</p> : null}
         </CardContent>
       </Card>
+
+      <LocalProcessingNotice contained={false} className="pb-0" />
     </div>
   );
 };

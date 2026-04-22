@@ -3,6 +3,8 @@ import { Upload, Download, Maximize2, Loader2, AlertCircle, ImageIcon, Minus, Pl
 
 import ToolHero from "@/components/ToolHero";
 import { AdSlot } from "@/components/ads/AdSlot";
+import LocalProcessingNotice from "@/components/LocalProcessingNotice";
+import { ResultImageDialog } from "@/components/ResultImagePreview";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -66,6 +68,8 @@ const ResizeUpscalePage: React.FC = () => {
   const [originalSize, setOriginalSize] = useState<{ width: number; height: number } | null>(null);
   const [resultSize, setResultSize] = useState<{ width: number; height: number } | null>(null);
   const [isDirty, setIsDirty] = useState<boolean>(false);
+  const [resultPreviewUrl, setResultPreviewUrl] = useState<string>("");
+  const [isResultPreviewOpen, setIsResultPreviewOpen] = useState(false);
 
   const [sourceUrl, setSourceUrl] = useState<string | null>(null);
 
@@ -93,6 +97,8 @@ const ResizeUpscalePage: React.FC = () => {
   const resetResultState = useCallback(() => {
     resultCanvasRef.current = null;
     setResultSize(null);
+    setResultPreviewUrl("");
+    setIsResultPreviewOpen(false);
     setIsDirty(true);
   }, []);
 
@@ -345,6 +351,14 @@ const ResizeUpscalePage: React.FC = () => {
     }, "image/png", 1);
   };
 
+  const openResultPreview = () => {
+    const canvas = resultCanvasRef.current;
+    if (!canvas) return;
+
+    setResultPreviewUrl(canvas.toDataURL("image/png"));
+    setIsResultPreviewOpen(true);
+  };
+
   const resetEditor = () => {
     setSelectedPreset(copy.presets[0].id);
     setCustomWidth(originalSize ? String(originalSize.width) : "");
@@ -552,7 +566,19 @@ const ResizeUpscalePage: React.FC = () => {
             <CardContent className="flex h-full items-center justify-center bg-muted/30 p-4">
               <div className="relative flex w-full items-center justify-center overflow-auto rounded-lg border border-dashed border-border bg-background p-4">
                 {originalSize ? (
-                  <canvas ref={canvasRef} className="max-h-[520px] w-full max-w-full object-contain" />
+                  <button
+                    type="button"
+                    className="group relative flex w-full cursor-zoom-in items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-default"
+                    disabled={!resultCanvasRef.current}
+                    onClick={openResultPreview}
+                  >
+                    <canvas ref={canvasRef} className="max-h-[520px] w-full max-w-full object-contain" />
+                    {resultCanvasRef.current ? (
+                      <span className="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full bg-background/85 text-foreground opacity-0 shadow-sm backdrop-blur transition group-hover:opacity-100 group-focus-visible:opacity-100">
+                        <Maximize2 className="h-4 w-4" />
+                      </span>
+                    ) : null}
+                  </button>
                 ) : (
                   <div className="flex flex-col items-center justify-center space-y-3 text-center text-muted-foreground">
                     <ImageIcon className="h-10 w-10" />
@@ -595,7 +621,18 @@ const ResizeUpscalePage: React.FC = () => {
         </CardContent>
       </Card>
 
+      <LocalProcessingNotice contained={false} className="pb-0" />
+
       <AdSlot slot="ad-bottom" className="h-28" />
+
+      {resultPreviewUrl ? (
+        <ResultImageDialog
+          alt={copy.previewTitle}
+          onOpenChange={setIsResultPreviewOpen}
+          open={isResultPreviewOpen}
+          src={resultPreviewUrl}
+        />
+      ) : null}
     </div>
   );
 };

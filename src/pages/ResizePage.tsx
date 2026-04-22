@@ -9,6 +9,8 @@ import { RotateCcw, Upload, Download, Lock, Unlock } from "@/components/icons";
 import { Switch } from '@/components/ui/switch';
 import { Progress } from '@/components/ui/progress';
 import ToolHero from '@/components/ToolHero';
+import LocalProcessingNotice from '@/components/LocalProcessingNotice';
+import { ResultImagePreview } from '@/components/ResultImagePreview';
 import { upscaleCanvas, type UpscaleFactor } from '@/utils/upscale';
 import { logClientEvent } from '@/utils/clientLogger';
 
@@ -753,7 +755,7 @@ const ResizePage = () => {
               <CardContent>
                 {resizedImage ? (
                   <div className="space-y-4">
-                    <img
+                    <ResultImagePreview
                       src={resizedImage}
                       srcSet={`${resizedImage} 1x`}
                       sizes="(max-width: 768px) 100vw, 33vw"
@@ -806,6 +808,8 @@ const ResizePage = () => {
             </ul>
           </CardContent>
         </Card>
+
+        <LocalProcessingNotice contained={false} className="pb-0" />
       </div>
   );
 };

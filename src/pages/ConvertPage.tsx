@@ -4,6 +4,8 @@ import { Download, RefreshCw, Upload } from "@/components/icons";
 
 import ToolHero from "@/components/ToolHero";
 import { AdSlot } from "@/components/ads/AdSlot";
+import LocalProcessingNotice from "@/components/LocalProcessingNotice";
+import { ResultImagePreview } from "@/components/ResultImagePreview";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -290,7 +292,7 @@ const ConvertPage = () => {
           <CardContent>
             {convertedImageUrl ? (
               <div className="space-y-4">
-                <img
+                <ResultImagePreview
                   src={convertedImageUrl}
                   alt={copy.resultAlt}
                   className="w-full rounded-lg border"
@@ -310,6 +312,8 @@ const ConvertPage = () => {
           </CardContent>
         </Card>
       </div>
+
+      <LocalProcessingNotice contained={false} className="pb-0" />
     </div>
   );
 };

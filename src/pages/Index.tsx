@@ -6,6 +6,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Cpu,
+  Download,
   Eraser,
   ImageIcon,
   Leaf,
@@ -24,23 +25,23 @@ import { useLanguage } from "@/contexts/LanguageContext";
 
 const HOME_COPY = {
   en: {
-    eyebrow: "Natural browser editing",
-    heroTitle: "Cultivate visual clarity with a gentle workflow.",
+    eyebrow: "ImageMagic",
+    heroTitle: "Clarity for your images.",
     heroDescription:
-      "ImageMagic helps you resize, convert, remove backgrounds, upscale with AI, and clean image details without sending files through a heavy workflow.",
-    primaryCta: "Start creating",
+      "Edit, clean, and transform images with precision, directly in the browser.",
+    primaryCta: "Start",
     secondaryCta: "View tools",
-    toolsTitle: "Transformative tools",
+    toolsTitle: "Fewer tools. More result.",
     toolsDescription:
-      "Compare the difference before opening a tool. Each workflow is focused on practical image cleanup and export-ready results.",
+      "Resize precisely, remove background with AI, clean details in seconds, and export ready to use.",
     previousLabel: "Previous tool preview",
     nextLabel: "Next tool preview",
     beforeLabel: "Before",
     afterLabel: "After",
     openTool: "Open tool",
-    workflowTitle: "Local-first workflow",
+    workflowTitle: "Built not to get in the way.",
     workflowDescription:
-      "The main tools process images in the browser whenever possible, reducing upload friction and keeping the editing flow lightweight.",
+      "You do not need to learn anything. Open a tool, adjust the image, and export.",
     workflowAction: "Learn about privacy",
     fineTuneTitle: "Fine-tune adjustments",
     fineTuneDescription:
@@ -48,7 +49,15 @@ const HOME_COPY = {
     roadmapTitle: "Next capabilities",
     roadmapDescription:
       "These additions fit the same calm workflow while expanding what ImageMagic can edit.",
-    trustItems: ["Browser processing", "No account required", "Clear export controls"],
+    trustItems: ["No installation", "No account required", "Clean export"],
+    heroPanel: {
+      ariaLabel: "Interactive preview of ImageMagic tools",
+      format: "Format",
+      quality: "Quality",
+      dimensions: "Dimensions",
+      export: "Export",
+      png: "PNG",
+    },
     stories: [
       {
         title: "Smart Resize",
@@ -105,23 +114,23 @@ const HOME_COPY = {
     ],
   },
   pt: {
-    eyebrow: "Edição natural no navegador",
-    heroTitle: "Cultive clareza visual com um fluxo leve.",
+    eyebrow: "ImageMagic",
+    heroTitle: "Clareza para suas imagens.",
     heroDescription:
-      "O ImageMagic ajuda a redimensionar, converter, remover fundos, ampliar com IA e limpar detalhes da imagem sem enviar arquivos por um fluxo pesado.",
-    primaryCta: "Começar criação",
+      "Edite, limpe e transforme imagens com precisão — direto no navegador.",
+    primaryCta: "Começar",
     secondaryCta: "Ver ferramentas",
-    toolsTitle: "Ferramentas transformadoras",
+    toolsTitle: "Menos ferramentas. Mais resultado.",
     toolsDescription:
-      "Compare a diferença antes de abrir uma ferramenta. Cada fluxo é focado em limpeza prática de imagem e resultado pronto para exportar.",
+      "Redimensione com precisão, remova fundo com IA, limpe detalhes em segundos e exporte pronto para uso.",
     previousLabel: "Prévia anterior",
     nextLabel: "Próxima prévia",
     beforeLabel: "Antes",
     afterLabel: "Depois",
     openTool: "Abrir ferramenta",
-    workflowTitle: "Fluxo local primeiro",
+    workflowTitle: "Feito para não atrapalhar.",
     workflowDescription:
-      "As principais ferramentas processam imagens no navegador sempre que possível, reduzindo fricção de upload e mantendo a edição leve.",
+      "Você não precisa aprender nada. Só abrir, ajustar e usar.",
     workflowAction: "Ver privacidade",
     fineTuneTitle: "Ajustes finos",
     fineTuneDescription:
@@ -129,7 +138,15 @@ const HOME_COPY = {
     roadmapTitle: "Próximos recursos",
     roadmapDescription:
       "Estas evoluções mantêm o mesmo fluxo calmo enquanto ampliam o que o ImageMagic consegue editar.",
-    trustItems: ["Processamento no navegador", "Sem conta obrigatória", "Exportação clara"],
+    trustItems: ["Sem instalação", "Sem conta obrigatória", "Exportação limpa"],
+    heroPanel: {
+      ariaLabel: "Prévia interativa das ferramentas do ImageMagic",
+      format: "Formato",
+      quality: "Qualidade",
+      dimensions: "Dimensões",
+      export: "Exportar",
+      png: "PNG",
+    },
     stories: [
       {
         title: "Redimensionamento inteligente",
@@ -186,23 +203,23 @@ const HOME_COPY = {
     ],
   },
   es: {
-    eyebrow: "Edición natural en el navegador",
-    heroTitle: "Cultiva claridad visual con un flujo ligero.",
+    eyebrow: "ImageMagic",
+    heroTitle: "Claridad para tus imágenes.",
     heroDescription:
-      "ImageMagic ayuda a redimensionar, convertir, eliminar fondos, ampliar con IA y limpiar detalles sin enviar archivos por un flujo pesado.",
-    primaryCta: "Empezar creación",
+      "Edita, limpia y transforma imágenes con precisión, directamente en el navegador.",
+    primaryCta: "Empezar",
     secondaryCta: "Ver herramientas",
-    toolsTitle: "Herramientas transformadoras",
+    toolsTitle: "Menos herramientas. Más resultado.",
     toolsDescription:
-      "Compara la diferencia antes de abrir una herramienta. Cada flujo se centra en limpieza práctica y resultados listos para exportar.",
+      "Redimensiona con precisión, elimina fondos con IA, limpia detalles en segundos y exporta listo para usar.",
     previousLabel: "Vista anterior",
     nextLabel: "Vista siguiente",
     beforeLabel: "Antes",
     afterLabel: "Después",
     openTool: "Abrir herramienta",
-    workflowTitle: "Flujo local primero",
+    workflowTitle: "Hecho para no estorbar.",
     workflowDescription:
-      "Las herramientas principales procesan imágenes en el navegador siempre que sea posible, reduciendo fricción de carga y manteniendo la edición ligera.",
+      "No necesitas aprender nada. Solo abre una herramienta, ajusta la imagen y exporta.",
     workflowAction: "Ver privacidad",
     fineTuneTitle: "Ajustes finos",
     fineTuneDescription:
@@ -210,7 +227,15 @@ const HOME_COPY = {
     roadmapTitle: "Próximas funciones",
     roadmapDescription:
       "Estas mejoras conservan el mismo flujo tranquilo mientras amplían lo que ImageMagic puede editar.",
-    trustItems: ["Procesamiento en navegador", "Sin cuenta obligatoria", "Exportación clara"],
+    trustItems: ["Sin instalación", "Sin cuenta obligatoria", "Exportación limpia"],
+    heroPanel: {
+      ariaLabel: "Vista interactiva de las herramientas de ImageMagic",
+      format: "Formato",
+      quality: "Calidad",
+      dimensions: "Dimensiones",
+      export: "Exportar",
+      png: "PNG",
+    },
     stories: [
       {
         title: "Redimensionado inteligente",
@@ -274,6 +299,116 @@ const getVisibleStories = <T,>(items: readonly T[], startIndex: number) => {
   return [first, second] as const;
 };
 
+type HomeCopy = (typeof HOME_COPY)[keyof typeof HOME_COPY];
+
+interface HeroShowcaseProps {
+  activeIndex: number;
+  copy: HomeCopy;
+  onNext: () => void;
+  onPrevious: () => void;
+  onSelect: (index: number) => void;
+}
+
+const HeroShowcase: React.FC<HeroShowcaseProps> = ({ activeIndex, copy, onNext, onPrevious, onSelect }) => {
+  const activeStory = copy.stories[activeIndex % copy.stories.length];
+
+  return (
+    <div className="hero-showcase" aria-label={copy.heroPanel.ariaLabel}>
+      <div className="hero-showcase-tools">
+        {copy.tools.map((tool) => {
+          const Icon = tool.icon;
+          const matchingStoryIndex = copy.stories.findIndex((story) => story.path === tool.path);
+          const isActive = activeStory.path === tool.path;
+          const className = `hero-showcase-tool ${isActive ? "is-active" : ""}`;
+
+          if (matchingStoryIndex < 0) {
+            return (
+              <Link key={tool.path} to={tool.path} className={className}>
+                <Icon className="h-4 w-4" />
+                <span>{tool.title}</span>
+              </Link>
+            );
+          }
+
+          return (
+            <button key={tool.path} type="button" className={className} onClick={() => onSelect(matchingStoryIndex)}>
+              <Icon className="h-4 w-4" />
+              <span>{tool.title}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      <div className="hero-showcase-stage">
+        <div className="hero-showcase-image hero-showcase-before" style={{ backgroundImage: `url(${activeStory.beforeImage})` }} />
+        <div className="hero-showcase-image hero-showcase-after" style={{ backgroundImage: `url(${activeStory.afterImage})` }} />
+        <div className="hero-showcase-divider">
+          <span>‹›</span>
+        </div>
+        <span className="hero-crop-dot left-0 top-0" />
+        <span className="hero-crop-dot right-0 top-0" />
+        <span className="hero-crop-dot bottom-0 left-0" />
+        <span className="hero-crop-dot bottom-0 right-0" />
+        <span className="hero-crop-dot left-1/2 top-0 -translate-x-1/2" />
+        <span className="hero-crop-dot bottom-0 left-1/2 -translate-x-1/2" />
+      </div>
+
+      <div className="hero-showcase-export">
+        <div className="space-y-1.5">
+          <span>{copy.heroPanel.format}</span>
+          <strong>{copy.heroPanel.png}</strong>
+        </div>
+        <div className="space-y-1.5">
+          <span>{copy.heroPanel.quality}</span>
+          <div className="hero-quality-line">
+            <i />
+          </div>
+        </div>
+        <div className="space-y-1.5">
+          <span>{copy.heroPanel.dimensions}</span>
+          <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2 text-xs">
+            <strong>1200</strong>
+            <span>×</span>
+            <strong>1200</strong>
+          </div>
+        </div>
+        <Button size="sm" className="w-full rounded-lg bg-primary text-primary-foreground hover:bg-primary/90">
+          {copy.heroPanel.export}
+          <Download className="ml-2 h-4 w-4" />
+        </Button>
+      </div>
+
+      <div className="hero-showcase-strip" aria-label={copy.nextLabel}>
+        {copy.stories.map((story, index) => (
+          <button
+            key={story.path}
+            type="button"
+            className={`hero-showcase-thumb ${index === activeIndex ? "is-active" : ""}`}
+            onClick={() => onSelect(index)}
+            aria-label={story.title}
+          >
+            <img src={story.afterImage} alt="" />
+          </button>
+        ))}
+      </div>
+
+      <div className="hero-showcase-controls">
+        <Button variant="secondary" size="sm" className="h-9 w-9 rounded-full p-0" onClick={onPrevious} aria-label={copy.previousLabel}>
+          <ChevronLeft className="h-4 w-4" />
+        </Button>
+        <div className="hero-showcase-dots" aria-hidden="true">
+          {copy.stories.map((story, index) => (
+            <span key={story.path} className={index === activeIndex ? "is-active" : ""} />
+          ))}
+        </div>
+        <Button variant="secondary" size="sm" className="h-9 w-9 rounded-full p-0" onClick={onNext} aria-label={copy.nextLabel}>
+          <ChevronRight className="h-4 w-4" />
+        </Button>
+      </div>
+    </div>
+  );
+};
+
 const Index = () => {
   const { language } = useLanguage();
   const copy = HOME_COPY[language];
@@ -326,7 +461,13 @@ const Index = () => {
           </div>
         </div>
 
-        <div className="nature-hero-image min-h-[360px] lg:min-h-[520px]" aria-hidden="true" />
+        <HeroShowcase
+          activeIndex={storyIndex}
+          copy={copy}
+          onNext={nextStory}
+          onPrevious={previousStory}
+          onSelect={setStoryIndex}
+        />
       </section>
 
       <section id="tools" className="bg-secondary/40 py-16 md:py-24">

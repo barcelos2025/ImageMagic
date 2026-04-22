@@ -5,6 +5,8 @@ import { useDropzone } from "react-dropzone";
 
 import ToolHero from "@/components/ToolHero";
 import { AdSlot } from "@/components/ads/AdSlot";
+import LocalProcessingNotice from "@/components/LocalProcessingNotice";
+import { ResultImagePreview } from "@/components/ResultImagePreview";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -1850,7 +1852,7 @@ const MagicBrushPage = () => {
             <CardContent className="space-y-4">
               {previewResultUrl ? (
                 <div className="space-y-3">
-                  <img src={previewResultUrl} alt="Magic Eraser preview" className="w-full rounded-lg border" />
+                  <ResultImagePreview src={previewResultUrl} alt="Magic Eraser preview" className="w-full rounded-lg border" />
                   <p className="text-sm text-muted-foreground">
                     {copy.previewForFile(selectedItem?.file.name ?? "")}
                   </p>
@@ -1868,7 +1870,11 @@ const MagicBrushPage = () => {
                     .filter((item) => item.processedUrl)
                     .map((item) => (
                       <div key={`${item.id}-result`} className="overflow-hidden rounded-lg border">
-                        <img src={item.processedUrl} alt={`${item.file.name} cleaned`} className="h-36 w-full object-cover" />
+                        <ResultImagePreview
+                          src={item.processedUrl}
+                          alt={`${item.file.name} cleaned`}
+                          className="h-36 w-full object-cover"
+                        />
                         <div className="p-2 text-xs text-muted-foreground">{item.file.name}</div>
                       </div>
                     ))}
@@ -1879,6 +1885,8 @@ const MagicBrushPage = () => {
           </Card>
         </div>
       </div>
+
+      <LocalProcessingNotice contained={false} className="pb-0" />
     </div>
   );
 };

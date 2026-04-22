@@ -2,6 +2,7 @@ import React from "react";
 import { Clock3, Cpu, Shield } from "@/components/icons";
 
 import { useLanguage } from "@/contexts/LanguageContext";
+import { cn } from "@/lib/utils";
 
 const NOTICE_COPY = {
   en: {
@@ -39,12 +40,17 @@ const NOTICE_COPY = {
   },
 } as const;
 
-const LocalProcessingNotice: React.FC = () => {
+interface LocalProcessingNoticeProps {
+  className?: string;
+  contained?: boolean;
+}
+
+const LocalProcessingNotice: React.FC<LocalProcessingNoticeProps> = ({ className, contained = true }) => {
   const { language } = useLanguage();
   const copy = NOTICE_COPY[language];
 
   return (
-    <section className="container pb-4">
+    <section className={cn(contained ? "container" : "", "pb-4", className)}>
       <div className="rounded-[2rem] border border-primary/15 bg-card/90 px-5 py-5 shadow-sm md:px-7 md:py-6">
         <div className="mx-auto max-w-6xl text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">{copy.eyebrow}</p>

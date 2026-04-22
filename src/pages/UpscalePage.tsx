@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { TrendingUp } from "@/components/icons";
 
+import LocalProcessingNotice from "@/components/LocalProcessingNotice";
 import ToolHero from "@/components/ToolHero";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -56,6 +57,8 @@ const UpscalePage = () => {
           </Button>
         </CardContent>
       </Card>
+
+      <LocalProcessingNotice contained={false} className="pb-0" />
     </div>
   );
 };
