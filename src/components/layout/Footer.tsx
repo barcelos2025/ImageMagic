@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Mail, Shield, Sparkles } from "@/components/icons";
+import { Mail, Shield } from "@/components/icons";
 
+import { BrandMark } from "@/components/BrandMark";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { SITE_CONFIG } from "@/lib/seo/siteConfig";
 
@@ -57,9 +58,7 @@ export const Footer: React.FC = () => {
         <div className="grid gap-10 rounded-[2rem] border border-border/70 bg-card/88 p-8 shadow-sm md:grid-cols-[1.2fr_0.8fr_0.8fr]">
           <div className="space-y-5">
             <div className="flex items-center gap-3">
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-primary shadow-sm">
-                <Sparkles className="h-5 w-5 text-primary-foreground" />
-              </div>
+              <BrandMark className="h-11 w-11 shadow-sm" />
               <div className="space-y-0.5">
                 <span className="block text-xl font-semibold tracking-tight text-foreground">{t("home.title")}</span>
                 <span className="block text-[11px] uppercase tracking-[0.18em] text-muted-foreground">{copy.tagline}</span>
@@ -76,6 +75,11 @@ export const Footer: React.FC = () => {
               <li>
                 <Link to="/resize" className="text-muted-foreground transition-colors hover:text-foreground">
                   {t("nav.resize")}
+                </Link>
+              </li>
+              <li>
+                <Link to="/smart-crop" className="text-muted-foreground transition-colors hover:text-foreground">
+                  {t("nav.smartCrop")}
                 </Link>
               </li>
               <li>

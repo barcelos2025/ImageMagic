@@ -23,6 +23,7 @@ const PrivacyPage = lazy(() => import("./pages/PrivacyPage"));
 const RemoveBackgroundPage = lazy(() => import("./pages/RemoveBackgroundPage"));
 const ResizePage = lazy(() => import("./pages/ResizePage"));
 const ResizeUpscalePage = lazy(() => import("./pages/ResizeUpscalePage"));
+const SmartCropPage = lazy(() => import("./pages/SmartCropPage"));
 const TermsPage = lazy(() => import("./pages/TermsPage"));
 
 const queryClient = new QueryClient();
@@ -41,6 +42,7 @@ const AppRoutes = () => (
   <Routes>
     <Route path="/" element={<Index />} />
     <Route path="/resize" element={<ResizePage />} />
+    <Route path="/smart-crop" element={<SmartCropPage />} />
     <Route path="/resize-upscale" element={<ResizeUpscalePage />} />
     <Route path="/convert" element={<ConvertPage />} />
     <Route path="/remove-background" element={<RemoveBackgroundPage />} />

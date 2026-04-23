@@ -20,6 +20,7 @@ import {
 } from "@/components/icons";
 
 import { AdSlot } from "@/components/ads/AdSlot";
+import { BeforeAfterSlider } from "@/components/editor";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -90,6 +91,7 @@ const HOME_COPY = {
     ],
     tools: [
       { title: "Resize", path: "/resize", icon: RotateCcw },
+      { title: "Smart crop", path: "/smart-crop", icon: ImageIcon },
       { title: "Convert", path: "/convert", icon: RefreshCw },
       { title: "Remove background", path: "/remove-background", icon: Scissors },
       { title: "AI upscale", path: "/resize-upscale", icon: StretchHorizontal },
@@ -117,7 +119,7 @@ const HOME_COPY = {
     eyebrow: "ImageMagic",
     heroTitle: "Clareza para suas imagens.",
     heroDescription:
-      "Edite, limpe e transforme imagens com precisão — direto no navegador.",
+      "Edite, limpe e transforme imagens com precisão, direto no navegador.",
     primaryCta: "Começar",
     secondaryCta: "Ver ferramentas",
     toolsTitle: "Menos ferramentas. Mais resultado.",
@@ -179,6 +181,7 @@ const HOME_COPY = {
     ],
     tools: [
       { title: "Redimensionar", path: "/resize", icon: RotateCcw },
+      { title: "Corte inteligente", path: "/smart-crop", icon: ImageIcon },
       { title: "Converter", path: "/convert", icon: RefreshCw },
       { title: "Remover fundo", path: "/remove-background", icon: Scissors },
       { title: "Upscale IA", path: "/resize-upscale", icon: StretchHorizontal },
@@ -268,6 +271,7 @@ const HOME_COPY = {
     ],
     tools: [
       { title: "Redimensionar", path: "/resize", icon: RotateCcw },
+      { title: "Recorte inteligente", path: "/smart-crop", icon: ImageIcon },
       { title: "Convertir", path: "/convert", icon: RefreshCw },
       { title: "Eliminar fondo", path: "/remove-background", icon: Scissors },
       { title: "Upscale IA", path: "/resize-upscale", icon: StretchHorizontal },
@@ -324,7 +328,7 @@ const HeroShowcase: React.FC<HeroShowcaseProps> = ({ activeIndex, copy, onNext, 
           if (matchingStoryIndex < 0) {
             return (
               <Link key={tool.path} to={tool.path} className={className}>
-                <Icon className="h-4 w-4" />
+                <Icon className="h-5 w-5" />
                 <span>{tool.title}</span>
               </Link>
             );
@@ -332,7 +336,7 @@ const HeroShowcase: React.FC<HeroShowcaseProps> = ({ activeIndex, copy, onNext, 
 
           return (
             <button key={tool.path} type="button" className={className} onClick={() => onSelect(matchingStoryIndex)}>
-              <Icon className="h-4 w-4" />
+              <Icon className="h-5 w-5" />
               <span>{tool.title}</span>
             </button>
           );
@@ -425,36 +429,36 @@ const Index = () => {
 
   return (
     <div className="home-nature overflow-hidden pb-16">
-      <section className="container grid min-h-[calc(100vh-4rem)] items-center gap-12 py-12 lg:grid-cols-[0.92fr_1.08fr] lg:py-20">
-        <div className="max-w-2xl space-y-7">
-          <div className="inline-flex items-center gap-2 rounded-full bg-primary/12 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
+      <section className="home-hero-shell grid min-h-[calc(100vh-4rem)] items-center gap-12 py-10 md:py-12 lg:grid-cols-[0.88fr_1.12fr] lg:gap-14 lg:py-14">
+        <div className="max-w-[720px] space-y-8">
+          <div className="inline-flex items-center gap-2 rounded-full bg-primary/12 px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.18em] text-primary">
             <Leaf className="h-4 w-4" />
             {copy.eyebrow}
           </div>
 
-          <div className="space-y-5">
-            <h1 className="text-4xl font-semibold leading-[1.08] tracking-tight text-foreground md:text-6xl">
+          <div className="space-y-6">
+            <h1 className="text-5xl font-semibold leading-[1.04] tracking-tight text-foreground md:text-7xl">
               {copy.heroTitle}
             </h1>
-            <p className="max-w-xl text-base leading-8 text-muted-foreground md:text-lg">{copy.heroDescription}</p>
+            <p className="max-w-[640px] text-lg leading-8 text-muted-foreground md:text-xl md:leading-9">{copy.heroDescription}</p>
           </div>
 
           <div className="flex flex-col gap-3 sm:flex-row">
-            <Button asChild size="lg" className="rounded-full bg-primary px-7 text-primary-foreground hover:bg-primary/90">
+            <Button asChild size="lg" className="rounded-full bg-primary px-8 text-primary-foreground hover:bg-primary/90">
               <Link to="/resize">
                 {copy.primaryCta}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
-            <Button asChild variant="secondary" size="lg" className="rounded-full px-7">
+            <Button asChild variant="secondary" size="lg" className="rounded-full px-8">
               <a href="#tools">{copy.secondaryCta}</a>
             </Button>
           </div>
 
-          <div className="grid gap-3 pt-3 sm:grid-cols-3">
+          <div className="grid gap-4 pt-3 sm:grid-cols-3">
             {copy.trustItems.map((item) => (
-              <div key={item} className="flex items-center gap-2 text-sm text-muted-foreground">
-                <CheckCircle2 className="h-4 w-4 flex-none text-primary" />
+              <div key={item} className="flex items-center gap-2 text-base text-muted-foreground">
+                <CheckCircle2 className="h-5 w-5 flex-none text-primary" />
                 <span>{item}</span>
               </div>
             ))}
@@ -483,16 +487,12 @@ const Index = () => {
                 key={`${story.title}-${storyIndex}`}
                 className={`polaroid-card ${index === 0 ? "md:-rotate-3" : "md:rotate-3 md:translate-y-4"}`}
               >
-                <div className="polaroid-photo">
-                  <div className="photo-half photo-before" style={{ backgroundImage: `url(${story.beforeImage})` }}>
-                    <span>{copy.beforeLabel}</span>
-                  </div>
-                  <div className="photo-half photo-after" style={{ backgroundImage: `url(${story.afterImage})` }}>
-                    <span>{copy.afterLabel}</span>
-                  </div>
-                  <div className="photo-divider" />
-                  <div className="photo-handle">‹›</div>
-                </div>
+                <BeforeAfterSlider
+                  beforeImage={story.beforeImage}
+                  afterImage={story.afterImage}
+                  beforeLabel={copy.beforeLabel}
+                  afterLabel={copy.afterLabel}
+                />
                 <div className="px-2 pt-5 text-center">
                   <h3 className="text-xl font-semibold tracking-tight text-primary">{story.title}</h3>
                   <p className="mt-2 text-sm italic leading-6 text-muted-foreground">{story.caption}</p>

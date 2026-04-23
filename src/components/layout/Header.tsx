@@ -1,7 +1,8 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Globe, Leaf, Menu, Moon, Sun } from "@/components/icons";
+import { Globe, Menu, Moon, Sun } from "@/components/icons";
 
+import { BrandMark } from "@/components/BrandMark";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -63,6 +64,7 @@ export const Header: React.FC = () => {
   const navItems = [
     { path: "/", label: t("nav.home") },
     { path: "/resize", label: t("nav.resize") },
+    { path: "/smart-crop", label: t("nav.smartCrop") },
     { path: "/convert", label: t("nav.convert") },
     { path: "/remove-background", label: t("nav.removeBackground") },
     { path: "/magic-brush", label: t("nav.magicBrush") },
@@ -82,6 +84,7 @@ export const Header: React.FC = () => {
     <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/95 backdrop-blur-xl">
       <div className="container flex h-16 items-center justify-between gap-4">
         <Link to="/" className="group flex items-center gap-3">
+          <BrandMark className="h-9 w-9 shadow-sm transition-transform duration-300 group-hover:scale-105" />
           <span className="block text-xl font-semibold tracking-tight text-primary">{t("home.title")}</span>
         </Link>
 
@@ -101,8 +104,6 @@ export const Header: React.FC = () => {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Leaf className="hidden h-5 w-5 text-primary/65 md:block" />
-
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="sm" className="rounded-full px-3" aria-label={copy.languageSelector}>

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
+import { getBrowserCookie, setBrowserCookie } from "@/lib/browserCookies";
 
 const CONSENT_KEY = "imagemagic-consent";
 const CONSENT_EVENT = "imagemagic-consent-accepted";
@@ -13,7 +14,7 @@ const ConsentBanner: React.FC = () => {
 
   useEffect(() => {
     try {
-      const stored = localStorage.getItem(CONSENT_KEY);
+      const stored = getBrowserCookie(CONSENT_KEY) ?? localStorage.getItem(CONSENT_KEY);
       if (!stored) {
         setVisible(true);
       }
@@ -24,6 +25,7 @@ const ConsentBanner: React.FC = () => {
 
   const handleChoice = (value: "accepted" | "declined") => {
     try {
+      setBrowserCookie(CONSENT_KEY, value, 180);
       localStorage.setItem(CONSENT_KEY, value);
       if (value === "accepted") {
         window.dispatchEvent(new Event(CONSENT_EVENT));

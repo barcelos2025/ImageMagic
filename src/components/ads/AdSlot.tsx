@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { Card } from "@/components/ui/card";
+import { getBrowserCookie } from "@/lib/browserCookies";
 import { cn } from "@/lib/utils";
 
 export interface AdSlotProps {
@@ -22,7 +23,7 @@ export const AdSlot: React.FC<AdSlotProps> = ({ slot = "ad-slot", className }) =
 
     const syncConsentState = () => {
       try {
-        setHasConsent(window.localStorage.getItem(CONSENT_KEY) === "accepted");
+        setHasConsent((getBrowserCookie(CONSENT_KEY) ?? window.localStorage.getItem(CONSENT_KEY)) === "accepted");
       } catch (_error) {
         setHasConsent(false);
       }

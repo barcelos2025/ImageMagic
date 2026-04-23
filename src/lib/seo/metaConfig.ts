@@ -94,6 +94,29 @@ export const PAGE_META: Record<string, PageMeta> = {
     priority: 0.9,
     changefreq: "weekly",
   },
+  smartCrop: {
+    id: "smartCrop",
+    path: "/smart-crop",
+    titles: {
+      en: "Smart Crop Images Online | ImageMagic",
+      pt: "Corte Inteligente de Imagens Online | ImageMagic",
+      es: "Recorte Inteligente de Imagenes Online | ImageMagic",
+    },
+    descriptions: {
+      en: "Crop images with ready-made ratios for feeds, stories, banners, thumbnails, and product listings directly in the browser.",
+      pt: "Corte imagens com proporcoes prontas para feeds, stories, banners, miniaturas e vitrines diretamente no navegador.",
+      es: "Recorta imagenes con proporciones listas para feeds, stories, banners, miniaturas y catalogos directamente en el navegador.",
+    },
+    keywords: {
+      en: ["smart crop", "image cropper", "social media crop"],
+      pt: ["corte inteligente", "cortar imagem", "crop para redes sociais"],
+      es: ["recorte inteligente", "recortar imagen", "crop para redes sociales"],
+    },
+    ogImage: DEFAULT_OG_IMAGE,
+    type: "article",
+    priority: 0.85,
+    changefreq: "weekly",
+  },
   convert: {
     id: "convert",
     path: "/convert",

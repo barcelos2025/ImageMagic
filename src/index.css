@@ -240,12 +240,17 @@
     background: hsl(var(--background));
   }
 
+  .home-hero-shell {
+    width: min(1680px, calc(100% - 4rem));
+    margin-inline: auto;
+  }
+
   .hero-showcase {
     position: relative;
-    min-height: 520px;
+    min-height: 624px;
     overflow: hidden;
     border: 1px solid hsl(112 18% 78% / 0.36);
-    border-radius: 28px;
+    border-radius: 30px;
     background:
       radial-gradient(circle at 82% 38%, hsl(118 28% 86% / 0.74), transparent 32%),
       linear-gradient(135deg, hsl(60 22% 99%) 0%, hsl(105 24% 94%) 100%);
@@ -269,7 +274,7 @@
 
   .hero-showcase::after {
     inset: auto -8% 12% 54%;
-    height: 190px;
+    height: 228px;
     background: hsl(125 28% 84% / 0.54);
     clip-path: polygon(100% 0, 100% 100%, 0 74%);
     width: 52%;
@@ -277,25 +282,25 @@
 
   .hero-showcase-tools {
     position: absolute;
-    left: 34px;
-    top: 132px;
+    left: 41px;
+    top: 124px;
     z-index: 4;
     display: grid;
-    width: 170px;
+    width: 192px;
     gap: 8px;
   }
 
   .hero-showcase-tool {
     display: inline-flex;
-    min-height: 42px;
+    min-height: 44px;
     align-items: center;
     gap: 10px;
     border: 1px solid hsl(100 12% 84% / 0.9);
-    border-radius: 8px;
+    border-radius: 10px;
     background: hsl(60 18% 99% / 0.9);
-    padding: 0 13px;
+    padding: 0 16px;
     color: hsl(120 12% 24%);
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 700;
     text-align: left;
     box-shadow: 0 14px 28px -24px hsl(120 12% 20% / 0.5);
@@ -318,20 +323,20 @@
     position: absolute;
     left: 23%;
     right: 20%;
-    top: 70px;
-    bottom: 180px;
+    top: 84px;
+    bottom: 216px;
     z-index: 2;
     overflow: hidden;
     border: 1px solid hsl(110 9% 78% / 0.7);
-    border-radius: 12px;
+    border-radius: 14px;
     background:
       linear-gradient(45deg, hsl(96 9% 88%) 25%, transparent 25% 75%, hsl(96 9% 88%) 75%),
       linear-gradient(45deg, hsl(96 9% 88%) 25%, transparent 25% 75%, hsl(96 9% 88%) 75%);
     background-color: hsl(90 12% 96%);
     background-position:
       0 0,
-      18px 18px;
-    background-size: 36px 36px;
+      22px 22px;
+    background-size: 43px 43px;
     box-shadow: 0 30px 58px -42px hsl(120 12% 18% / 0.7);
   }
 
@@ -366,8 +371,8 @@
     left: 50%;
     top: 50%;
     display: grid;
-    height: 38px;
-    width: 38px;
+    height: 46px;
+    width: 46px;
     transform: translate(-50%, -50%);
     place-items: center;
     border-radius: 999px;
@@ -390,36 +395,36 @@
 
   .hero-showcase-export {
     position: absolute;
-    right: 38px;
-    top: 94px;
+    right: 46px;
+    top: 113px;
     z-index: 4;
     display: grid;
-    width: 178px;
-    gap: 14px;
+    width: 214px;
+    gap: 17px;
     border: 1px solid hsl(100 12% 84% / 0.9);
-    border-radius: 14px;
+    border-radius: 16px;
     background: hsl(60 18% 99% / 0.92);
-    padding: 18px;
+    padding: 22px;
     box-shadow: 0 24px 42px -34px hsl(120 14% 16% / 0.65);
     backdrop-filter: blur(14px);
   }
 
   .hero-showcase-export span {
     color: hsl(120 8% 38%);
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 600;
   }
 
   .hero-showcase-export strong {
     display: flex;
-    min-height: 34px;
+    min-height: 41px;
     align-items: center;
     justify-content: space-between;
     border-radius: 8px;
     background: hsl(90 20% 96%);
     padding: 0 10px;
     color: hsl(120 10% 20%);
-    font-size: 13px;
+    font-size: 15px;
   }
 
   .hero-quality-line {
@@ -442,17 +447,17 @@
 
   .hero-showcase-strip {
     position: absolute;
-    bottom: 62px;
+    bottom: 74px;
     left: 16%;
     right: 16%;
     z-index: 4;
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 14px;
+    gap: 17px;
     border: 1px solid hsl(100 12% 84% / 0.82);
-    border-radius: 14px;
+    border-radius: 16px;
     background: hsl(60 18% 99% / 0.9);
-    padding: 14px;
+    padding: 17px;
     box-shadow: 0 22px 44px -34px hsl(120 14% 16% / 0.62);
     backdrop-filter: blur(14px);
   }
@@ -482,7 +487,7 @@
 
   .hero-showcase-controls {
     position: absolute;
-    bottom: 20px;
+    bottom: 24px;
     left: 50%;
     z-index: 5;
     display: inline-flex;
@@ -508,6 +513,10 @@
   }
 
   @media (max-width: 900px) {
+    .home-hero-shell {
+      width: min(100% - 2rem, 720px);
+    }
+
     .hero-showcase {
       min-height: 560px;
       border-radius: 22px;

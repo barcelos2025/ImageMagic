@@ -22,6 +22,7 @@ const translations = {
   en: {
     'nav.home': 'Home',
     'nav.resize': 'Resize',
+    'nav.smartCrop': 'Smart Crop',
     'nav.convert': 'Convert',
     'nav.removeBackground': 'Remove Background',
     'nav.magicBrush': 'Magic Eraser',
@@ -38,6 +39,8 @@ const translations = {
 
     'tools.resize.title': 'Image Resize',
     'tools.resize.description': 'Resize images with smart presets or custom dimensions while maintaining quality',
+    'tools.smartCrop.title': 'Smart Crop',
+    'tools.smartCrop.description': 'Crop images with ready-made ratios for social posts, banners, thumbnails, and product channels',
     'tools.convert.title': 'Format Conversion',
     'tools.convert.description': 'Convert common browser-friendly image formats such as PNG, JPG, and WEBP',
     'tools.removeBackground.title': 'AI Background Removal',
@@ -54,6 +57,9 @@ const translations = {
     'common.error': 'Error',
     'common.success': 'Success',
     'common.convertImage': 'Convert Image',
+    'common.undo': 'Undo',
+    'common.redo': 'Redo',
+    'common.save': 'Save',
 
     'share.native': 'Share',
     'share.twitter': 'Share on X',
@@ -64,7 +70,7 @@ const translations = {
     'share.cancelled': 'Sharing cancelled',
 
     'consent.title': 'We value your privacy',
-    'consent.body': 'ImageMagic uses essential cookies to remember language preferences and to measure anonymous product usage when you allow analytics. Review our privacy policy for details.',
+    'consent.body': 'ImageMagic uses essential cookies to remember preferences such as custom crop sizes and to measure anonymous product usage when you allow analytics. Review our privacy policy for details.',
     'consent.decline': 'Decline',
     'consent.accept': 'Accept',
     'consent.policy': 'Privacy Policy',
@@ -74,6 +80,7 @@ const translations = {
   pt: {
     'nav.home': 'Início',
     'nav.resize': 'Redimensionar',
+    'nav.smartCrop': 'Corte inteligente',
     'nav.convert': 'Converter',
     'nav.removeBackground': 'Remover fundo',
     'nav.magicBrush': 'Borracha mágica',
@@ -90,6 +97,8 @@ const translations = {
 
     'tools.resize.title': 'Redimensionar imagem',
     'tools.resize.description': 'Redimensione imagens com presets inteligentes ou dimensões personalizadas mantendo a qualidade',
+    'tools.smartCrop.title': 'Corte inteligente',
+    'tools.smartCrop.description': 'Corte imagens com proporções prontas para posts, banners, miniaturas e canais de produto',
     'tools.convert.title': 'Converter formatos',
     'tools.convert.description': 'Converta formatos comuns de imagem do navegador, como PNG, JPG e WEBP',
     'tools.removeBackground.title': 'Remover fundo com IA',
@@ -106,6 +115,9 @@ const translations = {
     'common.error': 'Erro',
     'common.success': 'Sucesso',
     'common.convertImage': 'Converter imagem',
+    'common.undo': 'Desfazer',
+    'common.redo': 'Refazer',
+    'common.save': 'Salvar',
 
     'share.native': 'Compartilhar',
     'share.twitter': 'Compartilhar no X',
@@ -116,7 +128,7 @@ const translations = {
     'share.cancelled': 'Compartilhamento cancelado',
 
     'consent.title': 'Nós valorizamos sua privacidade',
-    'consent.body': 'O ImageMagic usa cookies essenciais para lembrar o idioma escolhido e medir o uso anônimo do produto quando você permite analytics. Consulte nossa política de privacidade para saber mais.',
+    'consent.body': 'O ImageMagic usa cookies essenciais para lembrar preferências como tamanhos personalizados de corte e medir o uso anônimo do produto quando você permite analytics. Consulte nossa política de privacidade para saber mais.',
     'consent.decline': 'Recusar',
     'consent.accept': 'Aceitar',
     'consent.policy': 'Política de privacidade',
@@ -126,6 +138,7 @@ const translations = {
   es: {
     'nav.home': 'Inicio',
     'nav.resize': 'Redimensionar',
+    'nav.smartCrop': 'Recorte inteligente',
     'nav.convert': 'Convertir',
     'nav.removeBackground': 'Quitar fondo',
     'nav.magicBrush': 'Borrador mágico',
@@ -142,6 +155,8 @@ const translations = {
 
     'tools.resize.title': 'Redimensionar imagen',
     'tools.resize.description': 'Redimensiona imágenes con presets inteligentes o dimensiones personalizadas manteniendo la calidad',
+    'tools.smartCrop.title': 'Recorte inteligente',
+    'tools.smartCrop.description': 'Recorta imágenes con proporciones listas para posts, banners, miniaturas y canales de producto',
     'tools.convert.title': 'Convertir formatos',
     'tools.convert.description': 'Convierte formatos comunes de imagen del navegador, como PNG, JPG y WEBP',
     'tools.removeBackground.title': 'Eliminar fondo con IA',
@@ -158,6 +173,9 @@ const translations = {
     'common.error': 'Error',
     'common.success': 'Éxito',
     'common.convertImage': 'Convertir imagen',
+    'common.undo': 'Deshacer',
+    'common.redo': 'Rehacer',
+    'common.save': 'Guardar',
 
     'share.native': 'Compartir',
     'share.twitter': 'Compartir en X',
@@ -168,7 +186,7 @@ const translations = {
     'share.cancelled': 'Compartido cancelado',
 
     'consent.title': 'Valoramos tu privacidad',
-    'consent.body': 'ImageMagic usa cookies esenciales para recordar el idioma elegido y medir el uso anónimo del producto cuando permites analytics. Consulta nuestra política de privacidad para más información.',
+    'consent.body': 'ImageMagic usa cookies esenciales para recordar preferencias como tamaños de recorte personalizados y medir el uso anónimo del producto cuando permites analytics. Consulta nuestra política de privacidad para más información.',
     'consent.decline': 'Rechazar',
     'consent.accept': 'Aceptar',
     'consent.policy': 'Política de privacidad',

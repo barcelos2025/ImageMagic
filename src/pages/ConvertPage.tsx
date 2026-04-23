@@ -1,88 +1,94 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { useDropzone } from "react-dropzone";
-import { Download, RefreshCw, Upload } from "@/components/icons";
+import React, { useEffect, useMemo, useState } from "react";
+import { RefreshCw } from "@/components/icons";
 
 import ToolHero from "@/components/ToolHero";
 import { AdSlot } from "@/components/ads/AdSlot";
+import { EditorShell, ExportControls, ExportPanel, ImageCanvasPreview, PresetSelector, ToolSidebar, UploadArea } from "@/components/editor";
 import LocalProcessingNotice from "@/components/LocalProcessingNotice";
-import { ResultImagePreview } from "@/components/ResultImagePreview";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useEditorExport, useEditorFiles, useEditorJobs, useEditorNotifications, useEditorPreview, useEditorState } from "@/hooks/editor";
+import { canEncodeMimeType, encodeCanvasToImageBlob, loadImageElement, renderImageToCanvas } from "@/lib/image-engine";
 
 const OUTPUT_FORMATS = [
-  { value: "jpg", label: "JPG", mime: "image/jpeg" },
-  { value: "png", label: "PNG", mime: "image/png" },
-  { value: "webp", label: "WEBP", mime: "image/webp" },
+  { value: "png", label: "PNG", mime: "image/png", extension: "png", quality: 1, preservesTransparency: true },
+  { value: "jpg", label: "JPG / JPEG", mime: "image/jpeg", extension: "jpg", quality: 0.92, preservesTransparency: false },
+  { value: "webp", label: "WEBP", mime: "image/webp", extension: "webp", quality: 0.92, preservesTransparency: true },
+  { value: "avif", label: "AVIF", mime: "image/avif", extension: "avif", quality: 0.9, preservesTransparency: true },
+  { value: "bmp", label: "BMP", mime: "image/bmp", extension: "bmp", quality: 1, preservesTransparency: false, manualEncoder: true },
 ] as const;
+
+type OutputFormat = (typeof OUTPUT_FORMATS)[number];
+type OutputFormatValue = OutputFormat["value"];
+
+const DEFAULT_OUTPUT_FORMAT: OutputFormatValue = "png";
 
 const CONVERT_COPY = {
   en: {
-    heroDescription: "Convert common raster images to JPG, PNG, or WEBP directly in the browser.",
+    heroDescription: "Convert browser-readable images to every export format available locally.",
     uploadTitle: "Upload image",
     uploadDescription:
       "This tool is intended for browser-friendly raster formats. PDF and advanced vector conversion are not currently offered here.",
     dropIdle: "Drag and drop an image here, or click to select.",
     dropActive: "Drop the image here.",
-    fileHint: "PNG, JPG, WEBP, GIF, BMP, or SVG up to 20 MB.",
+    fileHint: "PNG, JPG, WEBP, AVIF, GIF, BMP, SVG, ICO, TIFF, HEIC/HEIF, and other browser-readable images up to 20 MB.",
     originalAlt: "Original preview",
     formatLabel: "Export format",
-    formatPlaceholder: "Select output format",
+    availableFormatsPrefix: "Available outputs in this browser:",
     convertAction: "Convert image",
     resultTitle: "Result",
     resultDescription: "Preview the exported file before downloading it.",
     resultAlt: "Converted preview",
     emptyResult: "Upload a file and convert it to review the result here.",
+    resultReady: "Converted file ready.",
     errors: {
-      canvasUnavailable: "Canvas 2D context is not available in this browser.",
       generateFailed: "Unable to generate the converted file.",
       decodeFailed: "The selected file could not be decoded in this browser.",
       genericFailed: "The image could not be converted with the selected output format.",
     },
   },
   pt: {
-    heroDescription: "Converta imagens raster comuns para JPG, PNG ou WEBP diretamente no navegador.",
+    heroDescription: "Converta imagens legíveis pelo navegador para todos os formatos de exportação disponíveis localmente.",
     uploadTitle: "Enviar imagem",
     uploadDescription:
       "Esta ferramenta é voltada para formatos raster compatíveis com navegador. Conversão de PDF e vetores avançados não está disponível aqui no momento.",
     dropIdle: "Arraste uma imagem até aqui ou clique para selecionar.",
     dropActive: "Solte a imagem aqui.",
-    fileHint: "PNG, JPG, WEBP, GIF, BMP ou SVG de até 20 MB.",
+    fileHint: "PNG, JPG, WEBP, AVIF, GIF, BMP, SVG, ICO, TIFF, HEIC/HEIF e outras imagens legíveis pelo navegador até 20 MB.",
     originalAlt: "Pré-visualização original",
     formatLabel: "Formato de saída",
-    formatPlaceholder: "Selecione o formato de saída",
+    availableFormatsPrefix: "Saídas disponíveis neste navegador:",
     convertAction: "Converter imagem",
     resultTitle: "Resultado",
     resultDescription: "Visualize o arquivo exportado antes de baixá-lo.",
     resultAlt: "Pré-visualização convertida",
     emptyResult: "Envie um arquivo e converta-o para revisar o resultado aqui.",
+    resultReady: "Arquivo convertido pronto.",
     errors: {
-      canvasUnavailable: "O contexto 2D do canvas não está disponível neste navegador.",
       generateFailed: "Não foi possível gerar o arquivo convertido.",
       decodeFailed: "O arquivo selecionado não pôde ser decodificado neste navegador.",
       genericFailed: "Não foi possível converter a imagem com o formato de saída escolhido.",
     },
   },
   es: {
-    heroDescription: "Convierte imágenes raster comunes a JPG, PNG o WEBP directamente en el navegador.",
+    heroDescription: "Convierte imágenes legibles por el navegador a todos los formatos de exportación disponibles localmente.",
     uploadTitle: "Subir imagen",
     uploadDescription:
       "Esta herramienta está pensada para formatos raster compatibles con el navegador. La conversión de PDF y vectores avanzados no está disponible aquí por ahora.",
     dropIdle: "Arrastra una imagen hasta aquí o haz clic para seleccionarla.",
     dropActive: "Suelta la imagen aquí.",
-    fileHint: "PNG, JPG, WEBP, GIF, BMP o SVG de hasta 20 MB.",
+    fileHint: "PNG, JPG, WEBP, AVIF, GIF, BMP, SVG, ICO, TIFF, HEIC/HEIF y otras imágenes legibles por el navegador hasta 20 MB.",
     originalAlt: "Vista previa original",
     formatLabel: "Formato de salida",
-    formatPlaceholder: "Selecciona el formato de salida",
+    availableFormatsPrefix: "Salidas disponibles en este navegador:",
     convertAction: "Convertir imagen",
     resultTitle: "Resultado",
     resultDescription: "Previsualiza el archivo exportado antes de descargarlo.",
     resultAlt: "Vista previa convertida",
     emptyResult: "Sube un archivo y conviértelo para revisar aquí el resultado.",
+    resultReady: "Archivo convertido listo.",
     errors: {
-      canvasUnavailable: "El contexto 2D del canvas no está disponible en este navegador.",
       generateFailed: "No se pudo generar el archivo convertido.",
       decodeFailed: "El archivo seleccionado no pudo decodificarse en este navegador.",
       genericFailed: "No se pudo convertir la imagen con el formato de salida seleccionado.",
@@ -93,228 +99,206 @@ const CONVERT_COPY = {
 const ConvertPage = () => {
   const { language, t } = useLanguage();
   const copy = CONVERT_COPY[language];
-  const [image, setImage] = useState<File | null>(null);
-  const [imageUrl, setImageUrl] = useState("");
-  const [outputFormat, setOutputFormat] = useState<(typeof OUTPUT_FORMATS)[number]["value"]>("png");
-  const [convertedImageUrl, setConvertedImageUrl] = useState("");
-  const [isProcessing, setIsProcessing] = useState(false);
+  const { file, sourceUrl, setAcceptedFiles } = useEditorFiles();
+  const { previewUrl, clearPreview, setPreviewFromBlob } = useEditorPreview();
+  const { exportFile } = useEditorExport();
+  const notifications = useEditorNotifications();
+  const { jobs, upsertJob, removeJob } = useEditorJobs();
+  const editor = useEditorState({ outputFormat: DEFAULT_OUTPUT_FORMAT as OutputFormatValue });
+  const { syncSettings } = editor;
+  const [availableOutputFormats, setAvailableOutputFormats] = useState<OutputFormat[]>(() =>
+    OUTPUT_FORMATS.filter((format) => format.value !== "avif"),
+  );
   const [error, setError] = useState<string | null>(null);
+  const activeJob = jobs.find((job) => job.status === "running") ?? null;
 
   useEffect(() => {
-    return () => {
-      if (imageUrl) {
-        URL.revokeObjectURL(imageUrl);
-      }
-      if (convertedImageUrl) {
-        URL.revokeObjectURL(convertedImageUrl);
-      }
-    };
-  }, [convertedImageUrl, imageUrl]);
+    let isMounted = true;
 
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    const file = acceptedFiles[0];
-    if (!file) return;
-
-    const objectUrl = URL.createObjectURL(file);
-
-    setImage(file);
-    setImageUrl((previous) => {
-      if (previous) URL.revokeObjectURL(previous);
-      return objectUrl;
-    });
-    setConvertedImageUrl((previous) => {
-      if (previous) URL.revokeObjectURL(previous);
-      return "";
-    });
-    setError(null);
-  }, []);
-
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
-    accept: {
-      "image/*": [".png", ".jpg", ".jpeg", ".webp", ".bmp", ".gif", ".svg"],
-    },
-    multiple: false,
-    maxSize: 20 * 1024 * 1024,
-  });
-
-  const convertImage = async () => {
-    if (!image || !imageUrl) return;
-
-    setIsProcessing(true);
-    setError(null);
-
-    try {
-      const canvas = document.createElement("canvas");
-      const context = canvas.getContext("2d");
-
-      if (!context) {
-        throw new Error(copy.errors.canvasUnavailable);
-      }
-
-      const selectedFormat = OUTPUT_FORMATS.find((format) => format.value === outputFormat) ?? OUTPUT_FORMATS[1];
-
-      const convertedBlob = await new Promise<Blob>((resolve, reject) => {
-        const img = new Image();
-        img.onload = () => {
-          canvas.width = img.width;
-          canvas.height = img.height;
-
-          if (selectedFormat.value === "jpg") {
-            context.fillStyle = "#ffffff";
-            context.fillRect(0, 0, canvas.width, canvas.height);
+    const detectFormats = async () => {
+      const availability = await Promise.all(
+        OUTPUT_FORMATS.map(async (format) => {
+          if ("manualEncoder" in format && format.manualEncoder) {
+            return [format.value, true] as const;
           }
 
-          context.drawImage(img, 0, 0);
+          return [format.value, await canEncodeMimeType(format.mime)] as const;
+        }),
+      );
 
-          canvas.toBlob(
-            (blob) => {
-              if (blob) {
-                resolve(blob);
-              } else {
-                reject(new Error(copy.errors.generateFailed));
-              }
-            },
-            selectedFormat.mime,
-            0.92,
-          );
-        };
-        img.onerror = () => reject(new Error(copy.errors.decodeFailed));
-        img.src = imageUrl;
+      if (!isMounted) {
+        return;
+      }
+
+      const availableValues = new Set(availability.filter(([, supported]) => supported).map(([value]) => value));
+      const nextFormats = OUTPUT_FORMATS.filter((format) => availableValues.has(format.value));
+      setAvailableOutputFormats(nextFormats);
+      syncSettings((current) => ({
+        ...current,
+        outputFormat: availableValues.has(current.outputFormat) ? current.outputFormat : nextFormats[0]?.value ?? DEFAULT_OUTPUT_FORMAT,
+      }));
+    };
+
+    void detectFormats();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [syncSettings]);
+
+  const onDrop = (acceptedFiles: File[]) => {
+    setAcceptedFiles(acceptedFiles);
+    clearPreview();
+    setError(null);
+  };
+
+  const convertImage = async () => {
+    if (!file || !sourceUrl) {
+      return;
+    }
+
+    setError(null);
+    upsertJob({ id: "convert", label: copy.convertAction, progress: 20, status: "running" });
+
+    try {
+      const selectedFormat =
+        availableOutputFormats.find((format) => format.value === editor.settings.outputFormat) ?? availableOutputFormats[0] ?? OUTPUT_FORMATS[0];
+      const sourceImage = await loadImageElement(sourceUrl, copy.errors.decodeFailed);
+      upsertJob({ id: "convert", label: copy.convertAction, progress: 55, status: "running" });
+      const canvas = renderImageToCanvas(
+        sourceImage,
+        { width: sourceImage.naturalWidth, height: sourceImage.naturalHeight },
+        selectedFormat.preservesTransparency ? undefined : "#ffffff",
+      );
+      const convertedBlob = await encodeCanvasToImageBlob(canvas, {
+        mimeType: selectedFormat.mime,
+        quality: selectedFormat.quality,
+        fallbackError: copy.errors.generateFailed,
       });
 
-      const outputUrl = URL.createObjectURL(convertedBlob);
-      setConvertedImageUrl((previous) => {
-        if (previous) URL.revokeObjectURL(previous);
-        return outputUrl;
-      });
+      setPreviewFromBlob(convertedBlob);
+      upsertJob({ id: "convert", label: copy.convertAction, progress: 100, status: "done" });
+      notifications.success(copy.resultReady);
+      window.setTimeout(() => removeJob("convert"), 1200);
     } catch (conversionError) {
       console.error("Error converting image:", conversionError);
-      setError(conversionError instanceof Error ? conversionError.message : copy.errors.genericFailed);
-    } finally {
-      setIsProcessing(false);
+      const message = conversionError instanceof Error ? conversionError.message : copy.errors.genericFailed;
+      setError(message);
+      upsertJob({ id: "convert", label: copy.convertAction, progress: 100, status: "error", error: message });
+      notifications.error(message);
     }
   };
 
   const downloadImage = () => {
-    if (!convertedImageUrl) return;
+    if (!previewUrl) {
+      return;
+    }
 
-    const link = document.createElement("a");
-    link.href = convertedImageUrl;
-    link.download = `converted-${Date.now()}.${outputFormat}`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    const selectedFormat =
+      availableOutputFormats.find((format) => format.value === editor.settings.outputFormat) ?? availableOutputFormats[0] ?? OUTPUT_FORMATS[0];
+    exportFile(previewUrl, `converted-${Date.now()}.${selectedFormat.extension}`);
   };
 
+  const currentOutputFormat =
+    availableOutputFormats.find((format) => format.value === editor.settings.outputFormat) ?? availableOutputFormats[0] ?? OUTPUT_FORMATS[0];
+  const formatOptions = useMemo(
+    () => availableOutputFormats.map((format) => ({ value: format.value, label: format.label })),
+    [availableOutputFormats],
+  );
+
   return (
-    <div className="container space-y-8 py-12">
-      <ToolHero
-        pageId="convert"
-        icon={<RefreshCw className="h-6 w-6 text-white" />}
-        title={t("tools.convert.title")}
-        description={copy.heroDescription}
-        badgeClassName="bg-gradient-to-br from-green-500 to-emerald-500"
-      />
+    <EditorShell
+      hero={
+        <ToolHero
+          pageId="convert"
+          icon={<RefreshCw className="h-6 w-6 text-white" />}
+          title={t("tools.convert.title")}
+          description={copy.heroDescription}
+          badgeClassName="bg-gradient-to-br from-green-500 to-emerald-500"
+        />
+      }
+      topSlot={<AdSlot slot="convert-top-placement" className="h-24" />}
+      sidebar={
+        <ToolSidebar
+          title={copy.uploadTitle}
+          description={copy.uploadDescription}
+          canUndo={editor.canUndo}
+          canRedo={editor.canRedo}
+          onUndo={() => {
+            editor.undo();
+            clearPreview();
+          }}
+          onRedo={() => {
+            editor.redo();
+            clearPreview();
+          }}
+          undoLabel={t("common.undo")}
+          redoLabel={t("common.redo")}
+        >
+          <UploadArea idleLabel={copy.dropIdle} activeLabel={copy.dropActive} hint={copy.fileHint} onFilesAccepted={onDrop} />
 
-      <AdSlot slot="convert-top-placement" className="h-24" />
-
-      <div className="grid gap-8 lg:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle>{copy.uploadTitle}</CardTitle>
-            <CardDescription>{copy.uploadDescription}</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-5">
-            <div
-              {...getRootProps()}
-              className={`cursor-pointer rounded-lg border-2 border-dashed p-8 text-center transition-colors ${
-                isDragActive ? "border-primary bg-primary/5" : "border-border hover:border-primary/50"
-              }`}
-            >
-              <input {...getInputProps()} />
-              <Upload className="mx-auto mb-4 h-12 w-12 text-muted-foreground" />
-              <div className="space-y-2">
-                <p className="text-sm text-muted-foreground">{isDragActive ? copy.dropActive : copy.dropIdle}</p>
-                <p className="text-xs text-muted-foreground">{copy.fileHint}</p>
-              </div>
+          {sourceUrl ? (
+            <div className="space-y-3">
+              <ImageCanvasPreview
+                imageSrc={sourceUrl}
+                alt={copy.originalAlt}
+                imageClassName="w-full rounded-lg border"
+                imageStyle={{ maxHeight: "220px", objectFit: "contain" }}
+              />
+              <p className="text-center text-xs text-muted-foreground">{file?.name}</p>
             </div>
+          ) : null}
 
-            {imageUrl ? (
-              <div className="space-y-3">
-                <img
-                  src={imageUrl}
-                  alt={copy.originalAlt}
-                  className="w-full rounded-lg border"
-                  style={{ maxHeight: "220px", objectFit: "contain" }}
-                />
-                <p className="text-center text-xs text-muted-foreground">{image?.name}</p>
-              </div>
-            ) : null}
+          <PresetSelector
+            label={copy.formatLabel}
+            options={formatOptions}
+            value={editor.settings.outputFormat}
+            hint={`${copy.availableFormatsPrefix} ${availableOutputFormats.map((format) => format.label).join(", ")}.`}
+            onValueChange={(value) => {
+              editor.updateSettings({ outputFormat: value as OutputFormatValue });
+              clearPreview();
+            }}
+          />
 
-            <div className="space-y-2">
-              <label className="text-sm font-medium">{copy.formatLabel}</label>
-              <Select value={outputFormat} onValueChange={(value) => setOutputFormat(value as typeof outputFormat)}>
-                <SelectTrigger>
-                  <SelectValue placeholder={copy.formatPlaceholder} />
-                </SelectTrigger>
-                <SelectContent>
-                  {OUTPUT_FORMATS.map((format) => (
-                    <SelectItem key={format.value} value={format.value}>
-                      {format.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+          <Button onClick={convertImage} disabled={!file || Boolean(activeJob)} className="w-full bg-gradient-primary text-primary-foreground">
+            {activeJob ? t("common.processing") : copy.convertAction}
+          </Button>
+
+          {activeJob ? (
+            <p className="text-xs text-muted-foreground">
+              {activeJob.label} - {activeJob.progress}%
+            </p>
+          ) : null}
+
+          {error ? (
+            <Alert variant="destructive">
+              <AlertDescription>{error}</AlertDescription>
+            </Alert>
+          ) : null}
+        </ToolSidebar>
+      }
+      preview={
+        <ExportPanel title={copy.resultTitle} description={copy.resultDescription}>
+          {previewUrl ? (
+            <div className="space-y-4">
+              <ImageCanvasPreview
+                imageSrc={previewUrl}
+                alt={copy.resultAlt}
+                imageClassName="w-full rounded-lg border"
+                imageStyle={{ maxHeight: "220px", objectFit: "contain" }}
+              />
+              <ExportControls label={`${t("common.download")} ${currentOutputFormat.label}`} onDownload={downloadImage} />
             </div>
-
-            <Button
-              onClick={convertImage}
-              disabled={!image || isProcessing}
-              className="w-full bg-gradient-primary text-primary-foreground"
-            >
-              {isProcessing ? t("common.processing") : copy.convertAction}
-            </Button>
-
-            {error ? (
-              <Alert variant="destructive">
-                <AlertDescription>{error}</AlertDescription>
-              </Alert>
-            ) : null}
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>{copy.resultTitle}</CardTitle>
-            <CardDescription>{copy.resultDescription}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            {convertedImageUrl ? (
-              <div className="space-y-4">
-                <ResultImagePreview
-                  src={convertedImageUrl}
-                  alt={copy.resultAlt}
-                  className="w-full rounded-lg border"
-                  style={{ maxHeight: "220px", objectFit: "contain" }}
-                />
-                <Button onClick={downloadImage} className="w-full bg-gradient-success text-success-foreground">
-                  <Download className="mr-2 h-4 w-4" />
-                  {t("common.download")} {outputFormat.toUpperCase()}
-                </Button>
-              </div>
-            ) : (
-              <div className="py-16 text-center text-muted-foreground">
-                <RefreshCw className="mx-auto mb-4 h-12 w-12 opacity-50" />
-                <p>{copy.emptyResult}</p>
-              </div>
-            )}
-          </CardContent>
-        </Card>
-      </div>
-
-      <LocalProcessingNotice contained={false} className="pb-0" />
-    </div>
+          ) : (
+            <div className="py-16 text-center text-muted-foreground">
+              <RefreshCw className="mx-auto mb-4 h-12 w-12 opacity-50" />
+              <p>{copy.emptyResult}</p>
+            </div>
+          )}
+        </ExportPanel>
+      }
+      footer={<LocalProcessingNotice contained={false} className="pb-0" />}
+    />
   );
 };
 

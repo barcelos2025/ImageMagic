@@ -1,4 +1,6 @@
-﻿import { useEffect } from "react";
+import { useEffect } from "react";
+
+import { getBrowserCookie } from "@/lib/browserCookies";
 
 declare global {
   interface Window {
@@ -35,7 +37,7 @@ export const useAnalytics = () => {
     };
 
     try {
-      const storedConsent = window.localStorage.getItem(CONSENT_KEY);
+      const storedConsent = getBrowserCookie(CONSENT_KEY) ?? window.localStorage.getItem(CONSENT_KEY);
       if (storedConsent === "accepted") {
         initAnalytics();
       }
